@@ -1,0 +1,48 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' https: data:; media-src 'none'; child-src 'self'; object-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https:; font-src 'self' https:;">
+	<style>
+		img {
+			display: block;
+			width: 100%;
+			box-shadow: rgba(0, 0, 0, 0.55) 0px 20px 68px;
+		}
+		#result {
+			padding: 18px;
+			border-radius: 5px;
+		}
+		#output-container {
+			border: 20px solid #eee;
+			border-radius: 4px;	
+		}
+	</style>
+</head>
+<body>
+	<div id="output-container">
+		<img id="output" />
+		<div id="result">hello</div>
+	</div>
+	
+	<script src="/Users/penlv/code/vscode-live-clipboard/src/dom2image.js"></script>
+	<script>
+		document.addEventListener('paste', function (e) {
+			let node = document.getElementById('result');
+			document.getElementById('result').style.display = 'block';
+			node.innerHTML = e.clipboardData.getData('text/html');
+			domtoimage.toSvg(node, {
+					quality: 1.0
+				})
+				.then(function (dataUrl) {
+					document.getElementById('output').src = dataUrl;
+					document.getElementById('result').style.display = 'none';
+				})
+				.catch(function (error) {
+					console.error('oops, something went wrong!', error);
+				});
+		});
+		// document.execCommand("paste");
+	</script>
+</body>
+
+</html>
