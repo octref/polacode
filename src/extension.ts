@@ -1,28 +1,23 @@
-'use strict'
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode'
-import * as path from 'path';
+import * as path from 'path'
+import { writeFileSync } from 'fs'
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-	const htmlPath = path.resolve(context.extensionPath, 'src/index.html');
-
-	vscode.commands.registerCommand('extension.saveImage', e => {})
-
-  vscode.commands.registerCommand('extension.sayHello', () => {
-    vscode.commands.executeCommand(
-      'vscode.previewHtml',
-      vscode.Uri.file(htmlPath),
-      2,
-      'Clipboard',
-      {
-        allowScripts: true
-      }
-    )
-  })
+const writeSerializedBlobToFile = (serializeBlob, fileName) => {
+  const bytes = new Uint8Array(serializeBlob.split(','))
+  writeFileSync(fileName, new Buffer(bytes))
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {}
+export function activate(context: vscode.ExtensionContext) {
+  const htmlPath = path.resolve(context.extensionPath, 'src/index.html')
+  const outImagePath = path.resolve(context.extensionPath, 'out.png')
+
+  vscode.commands.registerCommand('_extension.saveImage', serializedBlob => {
+    writeSerializedBlobToFile(serializedBlob, outImagePath)
+  })
+
+  vscode.commands.registerCommand('extension.sayHello', () => {
+    vscode.commands.executeCommand('vscode.previewHtml', vscode.Uri.file(htmlPath), 2, 'Clipboard', {
+      allowScripts: true
+    })
+  })
+}
