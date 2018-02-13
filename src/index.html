@@ -6,6 +6,12 @@
       box-sizing: border-box;
       padding-top: 22px;
     }
+
+    #snippet-container {
+      background-color: #eee;
+      padding: 22px;
+      border-radius: 4px;
+    }
     #snippet {
       padding: 18px;
       padding-bottom: 22px;
@@ -13,10 +19,31 @@
       box-shadow: rgba(0, 0, 0, 0.55) 0px 20px 68px;
     }
 
-    #snippet-container {
-      background-color: #eee;
-      padding: 22px;
-      border-radius: 4px;
+    #save-container {
+      margin-top: 40px;
+      float: right;
+    }
+    #save {
+      color: #fff;
+      background-color: #5cb85c;
+      border-color: #5cb85c;
+      display: inline-block;
+      font-weight: 400;
+      line-height: 1.25;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      user-select: none;
+      border: 1px solid transparent;
+      padding: .5rem 1rem;
+      font-size: 1rem;
+      border-radius: .25rem;
+      transition: all .2s ease-in-out;
+    }
+    #save:hover {
+      color: #fff;
+      background-color: #449d44;
+      border-color: #419641;
     }
   </style>
 </head>
@@ -24,6 +51,10 @@
 <body>
   <div id="snippet-container">
     <div id="snippet" style="color: #d8dee9;background-color: #2e3440;font-family: Input Mono;font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">hello world</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span><span style="color: #81a1c1;">;</span></div></div>
+  </div>
+
+  <div id="save-container">
+    <button id="save">Save Image</button>
   </div>
 
   <script src="./dom2image.js"></script>

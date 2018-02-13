@@ -26,21 +26,22 @@ document.addEventListener('paste', function(e) {
   const innerHTML = e.clipboardData.getData('text/html')
   snippetNode.innerHTML = innerHTML
 
-  const width = snippetContainerNode.offsetWidth * 2
-  const height = snippetContainerNode.offsetHeight * 2
-  const config = {
-    width,
-    height,
-    style: {
-      transform: 'scale(2)',
-      'transform-origin': 'left top'
+  document.addEventListener('click', (e) => {
+    const width = snippetContainerNode.offsetWidth * 2
+    const height = snippetContainerNode.offsetHeight * 2
+    const config = {
+      width,
+      height,
+      style: {
+        transform: 'scale(2)',
+        'transform-origin': 'left top'
+      }
     }
-  }
 
-  domtoimage.toBlob(snippetContainerNode, config).then(blob => {
-    serializeBlob(blob, s => {
-      console.log(s)
-      postMessage(s)
+    domtoimage.toBlob(snippetContainerNode, config).then(blob => {
+      serializeBlob(blob, s => {
+        postMessage(s)
+      })
     })
   })
 })
