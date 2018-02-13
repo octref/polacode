@@ -11,6 +11,7 @@
 		#result {
 			padding: 18px;
 			border-radius: 5px;
+			box-shadow: rgba(0, 0, 0, 0.55) 0px 20px 68px;
 		}
 		#output-container {
 			border: 20px solid #eee;
@@ -19,30 +20,13 @@
 	</style>
 </head>
 <body>
+	<img id="output" />
 	<div id="output-container">
-		<img id="output" />
 		<div id="result">hello</div>
 	</div>
 	
 	<script src="/Users/penlv/code/vscode-live-clipboard/src/dom2image.js"></script>
-	<script>
-		document.addEventListener('paste', function (e) {
-			let node = document.getElementById('result');
-			document.getElementById('result').style.display = 'block';
-			node.innerHTML = e.clipboardData.getData('text/html');
-			domtoimage.toSvg(node, {
-					quality: 1.0
-				})
-				.then(function (dataUrl) {
-					document.getElementById('output').src = dataUrl;
-					document.getElementById('result').style.display = 'none';
-				})
-				.catch(function (error) {
-					console.error('oops, something went wrong!', error);
-				});
-		});
-		// document.execCommand("paste");
-	</script>
+	<script src="./main.js"></script>
 </body>
 
 </html>
