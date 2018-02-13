@@ -1,6 +1,7 @@
 import * as vscode from 'vscode'
 import * as path from 'path'
 import { writeFileSync } from 'fs'
+import { homedir } from 'os'
 
 const writeSerializedBlobToFile = (serializeBlob, fileName) => {
   const bytes = new Uint8Array(serializeBlob.split(','))
@@ -9,10 +10,18 @@ const writeSerializedBlobToFile = (serializeBlob, fileName) => {
 
 export function activate(context: vscode.ExtensionContext) {
   const htmlPath = path.resolve(context.extensionPath, 'src/index.html')
-  const outImagePath = path.resolve(context.extensionPath, 'out.png')
 
   vscode.commands.registerCommand('_extension.saveImage', serializedBlob => {
-    writeSerializedBlobToFile(serializedBlob, outImagePath)
+    vscode.window
+      .showSaveDialog({
+        defaultUri: vscode.Uri.file(path.resolve(homedir(), 'Desktop/codesnap.png')),
+        filters: {
+          'Images': ['png']
+        }
+      })
+      .then(uri => {
+        writeSerializedBlobToFile(serializedBlob, uri.path)
+      })
   })
 
   vscode.commands.registerCommand('extension.sayHello', () => {
