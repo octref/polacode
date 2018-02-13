@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "publisher": "rebornix",
   "engines": {
-    "vscode": "^1.5.0"
+    "vscode": "^1.19.0"
   },
   "categories": ["Other"],
   "activationEvents": ["onCommand:extension.sayHello"],
