@@ -13,18 +13,21 @@ const serializeBlob = (blob, cb) => {
 }
 
 function postMessage(args) {
-  window.parent.postMessage({
-    command: 'did-click-link',
-    data: `command:_extension.saveImage?${encodeURIComponent(JSON.stringify(args))}`
-  }, 'file://');
+  window.parent.postMessage(
+    {
+      command: 'did-click-link',
+      data: `command:_extension.saveImage?${encodeURIComponent(JSON.stringify(args))}`
+    },
+    'file://'
+  )
 }
 
 document.addEventListener('paste', function(e) {
   const innerHTML = e.clipboardData.getData('text/html')
   snippetNode.innerHTML = innerHTML
 
-  const width = snippetContainerNode.offsetWidth * 2;
-  const height = snippetContainerNode.offsetHeight * 2;
+  const width = snippetContainerNode.offsetWidth * 2
+  const height = snippetContainerNode.offsetHeight * 2
   const config = {
     width,
     height,
