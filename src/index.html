@@ -1,32 +1,27 @@
 <html>
-
 <head>
-	<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' https: data:; media-src 'none'; child-src 'self'; object-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https:; font-src 'self' https:;">
-	<style>
-		img {
-			display: block;
-			width: 100%;
-			box-shadow: rgba(0, 0, 0, 0.55) 0px 20px 68px;
-		}
-		#result {
-			padding: 18px;
-			border-radius: 5px;
-			box-shadow: rgba(0, 0, 0, 0.55) 0px 20px 68px;
-		}
-		#output-container {
-			border: 20px solid #eee;
-			border-radius: 4px;	
-		}
-	</style>
-</head>
-<body>
-	<img id="output" />
-	<div id="output-container">
-		<div id="result">hello</div>
-	</div>
-	
-	<script src="/Users/penlv/code/vscode-live-clipboard/src/dom2image.js"></script>
-	<script src="./main.js"></script>
-</body>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' https: data:; media-src 'none'; child-src 'self'; object-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https:; font-src 'self' https:;">
+  <style>
+    #snippet {
+      padding: 18px;
+      border-radius: 5px;
+      box-shadow: rgba(0, 0, 0, 0.55) 0px 20px 68px;
+    }
 
+    #snippet-container {
+      margin-top: 32px;
+      border: 20px solid #eee;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="snippet-container">
+    <div id="snippet" style="color: #d8dee9;background-color: #2e3440;font-family: Input Mono;font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">hello world</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span><span style="color: #81a1c1;">;</span></div></div>
+  </div>
+
+  <script src="./dom2image.js"></script>
+  <script src="./main.js"></script>
+</body>
 </html>
