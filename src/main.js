@@ -22,26 +22,26 @@ function postMessage(args) {
   )
 }
 
-document.addEventListener('paste', function(e) {
+document.addEventListener('paste', (e) => {
   const innerHTML = e.clipboardData.getData('text/html')
   snippetNode.innerHTML = innerHTML
+})
 
-  document.addEventListener('click', (e) => {
-    const width = snippetContainerNode.offsetWidth * 2
-    const height = snippetContainerNode.offsetHeight * 2
-    const config = {
-      width,
-      height,
-      style: {
-        transform: 'scale(2)',
-        'transform-origin': 'left top'
-      }
+document.getElementById('save').addEventListener('click', () => {
+  const width = snippetContainerNode.offsetWidth * 2
+  const height = snippetContainerNode.offsetHeight * 2
+  const config = {
+    width,
+    height,
+    style: {
+      transform: 'scale(2)',
+      'transform-origin': 'left top'
     }
+  }
 
-    domtoimage.toBlob(snippetContainerNode, config).then(blob => {
-      serializeBlob(blob, s => {
-        postMessage(s)
-      })
+  domtoimage.toBlob(snippetContainerNode, config).then(blob => {
+    serializeBlob(blob, s => {
+      postMessage(s)
     })
   })
 })
