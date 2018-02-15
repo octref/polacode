@@ -1,5 +1,6 @@
 const snippetNode = document.getElementById('snippet')
 const snippetContainerNode = document.getElementById('snippet-container')
+const obturateur = document.getElementById('save')
 
 const serializeBlob = (blob, cb) => {
   const fileReader = new FileReader()
@@ -22,12 +23,12 @@ function postMessage(args) {
   )
 }
 
-document.addEventListener('paste', (e) => {
+document.addEventListener('paste', e => {
   const innerHTML = e.clipboardData.getData('text/html')
   snippetNode.innerHTML = innerHTML
 })
 
-document.getElementById('save').addEventListener('click', () => {
+obturateur.addEventListener('click', () => {
   const width = snippetContainerNode.offsetWidth * 2
   const height = snippetContainerNode.offsetHeight * 2
   const config = {
@@ -44,4 +45,28 @@ document.getElementById('save').addEventListener('click', () => {
       postMessage(s)
     })
   })
+})
+
+let isInAnimation = false
+
+obturateur.addEventListener('mouseover', () => {
+  if (!isInAnimation) {
+    isInAnimation = true
+
+    new Vivus(
+      'save',
+      {
+        duration: 40,
+        onReady: () => {
+          obturateur.classList = 'obturateur filling'
+        }
+      },
+      () => {
+        setTimeout(() => {
+          isInAnimation = false
+          obturateur.classList = 'obturateur'
+        }, 600)
+      }
+    )
+  }
 })
