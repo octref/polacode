@@ -9,12 +9,12 @@ const writeSerializedBlobToFile = (serializeBlob, fileName) => {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  const htmlPath = path.resolve(context.extensionPath, 'src/index.html')
+  const htmlPath = path.resolve(context.extensionPath, 'src/webview/index.html')
 
-  vscode.commands.registerCommand('_extension.saveImage', serializedBlob => {
+  vscode.commands.registerCommand('_polacode.shutter', serializedBlob => {
     vscode.window
       .showSaveDialog({
-        defaultUri: vscode.Uri.file(path.resolve(homedir(), 'Desktop/codesnap.png')),
+        defaultUri: vscode.Uri.file(path.resolve(homedir(), 'Desktop/shot.png')),
         filters: {
           'Images': ['png']
         }
@@ -24,8 +24,8 @@ export function activate(context: vscode.ExtensionContext) {
       })
   })
 
-  vscode.commands.registerCommand('extension.sayHello', () => {
-    vscode.commands.executeCommand('vscode.previewHtml', vscode.Uri.file(htmlPath), 2, 'Clipboard', {
+  vscode.commands.registerCommand('polacode.activate', () => {
+    vscode.commands.executeCommand('vscode.previewHtml', vscode.Uri.file(htmlPath), 2, 'Polacode 📸', {
       allowScripts: true
     })
   })

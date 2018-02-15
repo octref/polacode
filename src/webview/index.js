@@ -16,7 +16,7 @@ function postMessage(args) {
   window.parent.postMessage(
     {
       command: 'did-click-link',
-      data: `command:_extension.saveImage?${encodeURIComponent(JSON.stringify(args))}`
+      data: `command:_polacode.shutter?${encodeURIComponent(JSON.stringify(args))}`
     },
     'file://'
   )
