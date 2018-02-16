@@ -23,8 +23,18 @@ function postMessage(args) {
   )
 }
 
+function updateSnippetBgColor(pastedHtml) {
+  const doc = new DOMParser().parseFromString(pastedHtml, 'text/html');
+  const bgColor = doc.querySelector('div').style.backgroundColor
+
+  document.getElementById('snippet').style.backgroundColor = bgColor
+}
+
 document.addEventListener('paste', e => {
   const innerHTML = e.clipboardData.getData('text/html')
+
+  updateSnippetBgColor(innerHTML)
+
   snippetNode.innerHTML = innerHTML
 })
 
