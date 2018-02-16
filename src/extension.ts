@@ -14,7 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.commands.registerCommand('_polacode.shutter', serializedBlob => {
     vscode.window
       .showSaveDialog({
-        defaultUri: vscode.Uri.file(path.resolve(homedir(), 'Desktop/shot.png')),
+        defaultUri: vscode.Uri.file(path.resolve(homedir(), 'Desktop/code.png')),
         filters: {
           'Images': ['png']
         }
