@@ -20,7 +20,7 @@ The code has to look right.
 
 ## Seriously, why not just take a screenshot?
 
-- I like and care about the shadow, padding & rounded corner of macOS's screenshot. I want it to be available for my code snippet too. You can't select a part of your code and easily get all these nice visuals with macOS's grab tool.
+- I like and care about the shadow, padding & rounded corner of macOS's screenshot. I want it to be available for my code snippet too. You can't select a part of your code and easily get all these nice visuals with macOS's Grab tool.
 - I want to hide errors, warnings, color decorators, folding markers, line numbers, scrollbar and minimap.
 - It generates something decent on Windows & Linux.
 
@@ -32,16 +32,16 @@ The code has to look right.
 
 [Monokai Pro](https://marketplace.visualstudio.com/items?itemName=monokai.theme-monokai-pro-vscode) + [Operator Mono](https://www.typography.com/blog/introducing-operator)
 
-![demo3](https://raw.githubusercontent.com/octref/polacode/master/demo/3.png)
+![demo2](https://raw.githubusercontent.com/octref/polacode/master/demo/2.png)
 
 [Material Theme Palenight](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme) + [Fira Code](https://github.com/tonsky/FiraCode)
 
-![demo2](https://raw.githubusercontent.com/octref/polacode/master/demo/2.png)
+![demo3](https://raw.githubusercontent.com/octref/polacode/master/demo/3.png)
 
 ## Tip
 
 - If you have the Vim extension, remove its keybinding for copying. Otherwise VS Code won't copy code with syntax highlighting. Alternatively you can run the command `Copy with Syntax Highlighting`.
-- When you are running out of horizontal space, try running the command `View: Toggle Editor Group Vertical/Horizontal Layout`.
+- When running out of horizontal space, try the command `View: Toggle Editor Group Vertical/Horizontal Layout`.
 
 ## Credit
 
