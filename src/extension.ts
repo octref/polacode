@@ -21,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
       })
       .then(uri => {
         if (uri) {
-          writeSerializedBlobToFile(serializedBlob, uri.path)
+          writeSerializedBlobToFile(serializedBlob, uri.fsPath)
         }
       })
   })
