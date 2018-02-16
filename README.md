@@ -30,9 +30,11 @@ The code has to look right.
 
 ## Credit
 
-Thanks to [@tsayen](https://github.com/tsayen) for making [dom-to-image](https://github.com/tsayen/dom-to-image), which polacode is using for generating the images.
+Thanks to [@tsayen](https://github.com/tsayen) for making [dom-to-image](https://github.com/tsayen/dom-to-image), which Polacode is using for generating the images.
 
-Thanks for [Dawn Labs](https://dawnlabs.io) for making [Carbon](https://carbon.now.sh) that inspired polacode.
+Thanks to [Dawn Labs](https://dawnlabs.io) for making [Carbon](https://carbon.now.sh) that inspired Polacode.
+
+Download button animation is made with [Vivus](https://github.com/maxwellito/vivus).
 
 ## License
 
