@@ -11,18 +11,17 @@ Happy Coding!
 
 ## Why?
 
-You have spent countless hours finding the perfect [JavaScript grammar](https://marketplace.visualstudio.com/search?term=javascript%20grammar&target=VSCode&category=All%20categories&sortBy=Relevance), matching it with a [sleek-looking VS Code theme](https://marketplace.visualstudio.com/search?target=VSCode&category=Themes&sortBy=Downloads), trying out all the [best programming fonts](https://www.slant.co/topics/67/~best-programming-fonts).
+Countless hours are spent finding the perfect [JavaScript grammar](https://marketplace.visualstudio.com/search?term=javascript%20grammar&target=VSCode&category=All%20categories&sortBy=Relevance), matching it with a [sleek-looking VS Code theme](https://marketplace.visualstudio.com/search?target=VSCode&category=Themes&sortBy=Downloads), and experimenting with the [best programming fonts](https://www.slant.co/topics/67/~best-programming-fonts).
 
-You take three days porting over [your theme](https://github.com/wesbos/cobalt2-vscode) before starting to use VS Code.
-You shell out $200 for italic cursive html attributes.
+Porting over [your theme](https://github.com/wesbos/cobalt2-vscode) takes three days before you can start using VS Code. Then you spend $200 for italic cursive html attributes.
 
-The code has to look right.
+You've spent all that time making the code look perfect.
 
 ## Seriously, why not just take a screenshot?
 
-- I like and care about the shadow, padding & rounded corner of macOS's screenshot. I want it to be available for my code snippet too. You can't select a part of your code and easily get all these nice visuals with macOS's Grab tool.
+- Shadows, padding, and rounded corners are what makes macOS’s screenshots visually appealing. I would love to apply these characteristics to my code snippets too, but macOS’s Grab Tool makes it difficult.
 - I want to hide errors, warnings, color decorators, folding markers, line numbers, scrollbar and minimap.
-- It generates something decent on Windows & Linux.
+- Windows & Linux users can also benefit from these visually appealing snippets.
 
 ## Demo
 
