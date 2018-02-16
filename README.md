@@ -18,15 +18,17 @@ The code has to look right.
 
 ## Demo
 
-- [Nord Theme](https://github.com/arcticicestudio/nord-visual-studio-code)
-- [Input Mono](http://input.fontbureau.com)
+[Nord](https://github.com/arcticicestudio/nord-visual-studio-code) + [Input Mono](http://input.fontbureau.com)
 
 ![demo1](https://raw.githubusercontent.com/octref/polacode/master/demo/1.png)
 
-- [Material Theme](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme) with Palenight Accent
-- [Fira Code](https://github.com/tonsky/FiraCode) with ligature
+[Monokai Pro](https://marketplace.visualstudio.com/items?itemName=monokai.theme-monokai-pro-vscode) + [Operator Mono](https://www.typography.com/blog/introducing-operator)
 
 ![demo2](https://raw.githubusercontent.com/octref/polacode/master/demo/2.png)
+
+[Material Theme Palenight](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme) + [Fira Code](https://github.com/tonsky/FiraCode)
+
+![demo3](https://raw.githubusercontent.com/octref/polacode/master/demo/3.png)
 
 ## Credit
 
