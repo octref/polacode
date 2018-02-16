@@ -65,7 +65,7 @@ obturateur.addEventListener('mouseover', () => {
         setTimeout(() => {
           isInAnimation = false
           obturateur.classList = 'obturateur'
-        }, 600)
+        }, 700)
       }
     )
   }
