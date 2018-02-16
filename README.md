@@ -1,65 +1,39 @@
-# vscode-live-clipboard README
+# Polacode
 
-This is the README for your extension "vscode-live-clipboard". After writing up a brief description, we recommend including the following sections.
+Polaroid for your code 📸.
 
-## Features
+![usage](./img/usage.gif)
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+By [Pine](https://github.com/octref) & [Peng](https://github.com/rebornix) from VS Code team.
+Happy Coding!
 
-For example if there is an image subfolder under your extension project workspace:
+## So
 
-\!\[feature X\]\(images/feature-x.png\)
+You have spent countless hours finding the perfect [JavaScript grammar](https://marketplace.visualstudio.com/search?term=javascript%20grammar&target=VSCode&category=All%20categories&sortBy=Relevance), matching it with a [sleek-looking VS Code theme](https://marketplace.visualstudio.com/search?target=VSCode&category=Themes&sortBy=Downloads), trying out all the [best programming fonts](https://www.slant.co/topics/67/~best-programming-fonts).
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+You spend three days porting [your theme](https://github.com/wesbos/cobalt2-vscode) before starting to use VS Code.
+You shell out $200 for italic html attributes.
 
-## Requirements
+The code has to look right.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Demo
 
-## Extension Settings
+- [Nord Theme](https://github.com/arcticicestudio/nord-visual-studio-code)
+- [Input Mono](http://input.fontbureau.com)
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+![demo1](./img/demo1.png)
 
-For example:
+- [Material Theme](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme) with Palenight Accent
+- [Fira Code](https://github.com/tonsky/FiraCode) with ligature
 
-This extension contributes the following settings:
+![demo2](./img/demo2.png)
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+## Credit
 
-## Known Issues
+Thanks to [@tsayen](https://github.com/tsayen) for making [dom-to-image](https://github.com/tsayen/dom-to-image), which polacode is using for generating the images.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Thanks for [Dawn Labs](https://dawnlabs.io) for making [Carbon](https://carbon.now.sh) that inspired polacode.
 
-## Release Notes
+## License
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on OSX or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on OSX or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (OSX) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+MIT

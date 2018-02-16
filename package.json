@@ -1,12 +1,21 @@
 {
-  "name": "codesnap",
-  "displayName": "codesnap",
-  "description": "",
-  "version": "0.0.1",
-  "publisher": "rebornix",
+  "name": "polacode",
+  "displayName": "polacode",
+  "description": "📸  Polaroid for your code",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/octref/polacode.git"
+  },
+  "publisher": "pnp",
   "engines": {
     "vscode": "^1.19.0"
   },
+  "galleryBanner": {
+    "color": "#fbfbfb",
+    "theme": "dark"
+  },
+  "icon": "img/icon.png",
   "categories": ["Other"],
   "activationEvents": ["onCommand:polacode.activate"],
   "main": "./out/src/extension",
