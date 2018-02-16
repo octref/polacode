@@ -38,6 +38,11 @@ The code has to look right.
 
 ![demo2](https://raw.githubusercontent.com/octref/polacode/master/demo/2.png)
 
+## Tip
+
+- If you have the Vim extension, remove its keybinding for copying. Otherwise VS Code won't copy code with syntax highlighting. Alternatively you can run the command `Copy with Syntax Highlighting`.
+- When you are running out of horizontal space, try running the command `View: Toggle Editor Group Vertical/Horizontal Layout`.
+
 ## Credit
 
 Thanks to [@tsayen](https://github.com/tsayen) for making [dom-to-image](https://github.com/tsayen/dom-to-image), which Polacode is using for generating the images.
