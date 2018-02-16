@@ -2,6 +2,8 @@
 
 Polaroid for your code 📸.
 
+[MarketPlace Page](https://marketplace.visualstudio.com/items?itemName=pnp.polacode) | [Install to VS Code](vscode:extension/pnp.polacode)
+
 ![usage](https://github.com/octref/polacode/raw/master/demo/usage.gif)
 
 By [Pine](https://github.com/octref) & [Peng](https://github.com/rebornix) from VS Code team.
