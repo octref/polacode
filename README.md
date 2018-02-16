@@ -2,7 +2,7 @@
 
 Polaroid for your code 📸.
 
-![usage](./img/usage.gif)
+![usage](./demo/usage.gif)
 
 By [Pine](https://github.com/octref) & [Peng](https://github.com/rebornix) from VS Code team.
 Happy Coding!
@@ -21,12 +21,12 @@ The code has to look right.
 - [Nord Theme](https://github.com/arcticicestudio/nord-visual-studio-code)
 - [Input Mono](http://input.fontbureau.com)
 
-![demo1](./img/demo1.png)
+![demo1](./demo/1.png)
 
 - [Material Theme](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme) with Palenight Accent
 - [Fira Code](https://github.com/tonsky/FiraCode) with ligature
 
-![demo2](./img/demo2.png)
+![demo2](./demo/2.png)
 
 ## Credit
 

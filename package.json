@@ -15,7 +15,7 @@
     "color": "#fbfbfb",
     "theme": "light"
   },
-  "icon": "img/icon.png",
+  "icon": "icon.png",
   "categories": ["Other"],
   "activationEvents": ["onCommand:polacode.activate"],
   "main": "./out/src/extension",
