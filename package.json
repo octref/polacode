@@ -13,7 +13,7 @@
   },
   "galleryBanner": {
     "color": "#fbfbfb",
-    "theme": "dark"
+    "theme": "light"
   },
   "icon": "img/icon.png",
   "categories": ["Other"],
