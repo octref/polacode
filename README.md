@@ -17,9 +17,6 @@ Porting over [your theme](https://github.com/wesbos/cobalt2-vscode) takes three 
 
 You've spent all that time making the code look perfect.
 
-
-The code has to look right.
-
 ## Seriously, why not just take a screenshot?
 
 - Shadows, padding, and rounded corners are what makes macOS’s screenshots visually appealing. I would love to apply these characteristics to my code snippets too, but macOS’s Grab Tool makes it difficult.
