@@ -23,11 +23,11 @@ const serializeBlob = (blob, cb) => {
   fileReader.readAsArrayBuffer(blob)
 }
 
-function postMessage(args) {
+function postMessage(command, args) {
   window.parent.postMessage(
     {
       command: 'did-click-link',
-      data: `command:polacode.shoot?${encodeURIComponent(JSON.stringify(args))}`
+      data: `command:${command}?${encodeURIComponent(JSON.stringify(args))}`
     },
     'file://'
   )
@@ -43,15 +43,17 @@ function getBrightness(hexColor) {
 function isDark(hexColor) {
   return getBrightness(hexColor) < 128
 }
+function getSnippetBgColor(html) {
+  return html.match(/background-color: (#[a-fA-F0-9]+)/)[1]
+}
 
-function updateEnvironment(pastedHtml) {
-  const bgColor = pastedHtml.match(/background-color: (#[a-fA-F0-9]+)/)[1]
 
+function updateEnvironment(snippetBgColor) {
   // update snippet bg color
-  document.getElementById('snippet').style.backgroundColor = bgColor
+  document.getElementById('snippet').style.backgroundColor = snippetBgColor
 
   // update backdrop color
-  if (isDark(bgColor)) {
+  if (isDark(snippetBgColor)) {
     snippetContainerNode.style.backgroundColor = '#f2f2f2'
   } else {
     snippetContainerNode.style.background = 'none'
@@ -89,7 +91,9 @@ document.addEventListener('paste', e => {
 
   const innerHTML = e.clipboardData.getData('text/html')
 
-  updateEnvironment(innerHTML)
+  const snippetBgColor = getSnippetBgColor(innerHTML)
+  postMessage('polacode.storeBgColor', snippetBgColor)
+  updateEnvironment(snippetBgColor)
 
   if (minIndent !== 0) {
     snippetNode.innerHTML = stripInitialIndent(innerHTML, minIndent)
@@ -112,7 +116,7 @@ obturateur.addEventListener('click', () => {
 
   domtoimage.toBlob(snippetContainerNode, config).then(blob => {
     serializeBlob(blob, s => {
-      postMessage(s)
+      postMessage('polacode.shoot', s)
     })
   })
 })
@@ -143,11 +147,20 @@ obturateur.addEventListener('mouseover', () => {
 
 window.addEventListener('message', e => {
   if (e) {
-    if (e.data.type === 'initFontFamily') {
-      const fontFamily = e.data.fontFamily
+    if (e.data.type === 'init') {
+      const { fontFamily, bgColor } = e.data
+
       const initialHtml = getInitialHtml(fontFamily)
-      snippetNode.innerHTML = getInitialHtml(fontFamily)
-      updateEnvironment(initialHtml)
+      snippetNode.innerHTML = initialHtml
+
+      // update backdrop color, using bgColor from last pasted snippet
+      // cannot deduce from initialHtml since it's always using Nord color
+      if (isDark(bgColor)) {
+        snippetContainerNode.style.backgroundColor = '#f2f2f2'
+      } else {
+        snippetContainerNode.style.background = 'none'
+      }
+
       snippetContainerNode.style.opacity = 1
     }
   }

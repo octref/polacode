@@ -29,6 +29,10 @@ export function activate(context: vscode.ExtensionContext) {
       })
   })
 
+  vscode.commands.registerCommand('polacode.storeBgColor', bgColor => {
+    context.globalState.update('polacode.bgColor', bgColor)
+  })
+
   vscode.commands.registerCommand('polacode.activate', () => {
     vscode.commands
       .executeCommand('vscode.previewHtml', indexUri, 2, 'Polacode 📸', {
@@ -36,9 +40,11 @@ export function activate(context: vscode.ExtensionContext) {
       })
       .then(() => {
         const fontFamily = vscode.workspace.getConfiguration('editor').fontFamily
+        const bgColor = context.globalState.get('polacode.bgColor', '#2e3440')
         vscode.commands.executeCommand('_workbench.htmlPreview.postMessage', indexUri, {
-          type: 'initFontFamily',
-          fontFamily
+          type: 'init',
+          fontFamily,
+          bgColor
         })
       })
   })
