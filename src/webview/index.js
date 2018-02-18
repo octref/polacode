@@ -29,11 +29,13 @@ function postMessage(args) {
   )
 }
 
-function updateSnippetBgColor(pastedHtml) {
-  const doc = new DOMParser().parseFromString(pastedHtml, 'text/html')
-  const bgColor = doc.querySelector('div').style.backgroundColor
+function updateEnvironment(pastedHtml) {
+  const bgColor = pastedHtml.match(/background-color: (#[a-fA-F0-9]+)/)[1]
 
+  // update snippet bg color
   document.getElementById('snippet').style.backgroundColor = bgColor
+
+  // update backdrop color
 }
 
 function getMinIndent(code) {
@@ -67,7 +69,7 @@ document.addEventListener('paste', e => {
 
   const innerHTML = e.clipboardData.getData('text/html')
 
-  updateSnippetBgColor(innerHTML)
+  updateEnvironment(innerHTML)
 
   if (minIndent !== 0) {
     snippetNode.innerHTML = stripInitialIndent(innerHTML, minIndent)
@@ -125,7 +127,7 @@ window.addEventListener('message', e => {
       const fontFamily = e.data.fontFamily
       const initialHtml = getInitialHtml(fontFamily)
       snippetNode.innerHTML = getInitialHtml(fontFamily)
-      updateSnippetBgColor(initialHtml)
+      updateEnvironment(initialHtml)
       snippetContainerNode.style.opacity = 1
     }
   }
