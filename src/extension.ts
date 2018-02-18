@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
   const indexUri = vscode.Uri.file(htmlPath)
 
   let lastUsedImageUri = vscode.Uri.file(path.resolve(homedir(), 'Desktop/code.png'))
-  vscode.commands.registerCommand('_polacode.shutter', serializedBlob => {
+  vscode.commands.registerCommand('polacode.shoot', serializedBlob => {
     vscode.window
       .showSaveDialog({
         defaultUri: lastUsedImageUri,

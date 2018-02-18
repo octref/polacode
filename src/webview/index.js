@@ -23,7 +23,7 @@ function postMessage(args) {
   window.parent.postMessage(
     {
       command: 'did-click-link',
-      data: `command:_polacode.shutter?${encodeURIComponent(JSON.stringify(args))}`
+      data: `command:polacode.shoot?${encodeURIComponent(JSON.stringify(args))}`
     },
     'file://'
   )
