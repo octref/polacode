@@ -8,6 +8,13 @@
     "url": "https://github.com/octref/polacode.git"
   },
   "publisher": "pnp",
+  "keywords": [
+    "polacode",
+    "polaroid",
+    "screenshot",
+    "snippet",
+    "share"
+  ],
   "engines": {
     "vscode": "^1.19.0"
   },
