@@ -40,7 +40,6 @@ The code has to look right.
 
 ## Tip
 
-- If you have the Vim extension, remove its keybinding for copying. Otherwise VS Code won't copy code with syntax highlighting. Alternatively you can run the command `Copy with Syntax Highlighting`.
 - When running out of horizontal space, try the command `View: Toggle Editor Group Vertical/Horizontal Layout`.
 
 ## Credit
