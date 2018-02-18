@@ -36,12 +36,44 @@ function updateSnippetBgColor(pastedHtml) {
   document.getElementById('snippet').style.backgroundColor = bgColor
 }
 
+function getMinIndent(code) {
+  const arr = code.split('\n')
+
+  let minIndentCount = Number.MAX_VALUE
+  for (let i = 0; i < arr.length; i++) {
+    const wsCount = arr[i].search(/\S/)
+    if (wsCount !== -1) {
+      if (wsCount < minIndentCount) {
+        minIndentCount = wsCount
+      }
+    }
+  }
+
+  return minIndentCount
+}
+
+function stripInitialIndent(html, indent) {
+  const doc = new DOMParser().parseFromString(html, 'text/html')
+  const initialSpans = doc.querySelectorAll('div > div span:first-child')
+  for (let i = 0; i < initialSpans.length; i++) {
+    initialSpans[i].innerText = initialSpans[i].innerText.slice(indent)
+  }
+  return doc.body.innerHTML
+}
+
 document.addEventListener('paste', e => {
+  const code = e.clipboardData.getData('text/plain')
+  const minIndent = getMinIndent(code)
+
   const innerHTML = e.clipboardData.getData('text/html')
 
   updateSnippetBgColor(innerHTML)
 
-  snippetNode.innerHTML = innerHTML
+  if (minIndent !== 0) {
+    snippetNode.innerHTML = stripInitialIndent(innerHTML, minIndent)
+  } else {
+    snippetNode.innerHTML = innerHTML
+  }
 })
 
 obturateur.addEventListener('click', () => {
