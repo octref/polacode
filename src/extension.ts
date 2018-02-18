@@ -29,10 +29,6 @@ export function activate(context: vscode.ExtensionContext) {
       })
   })
 
-  vscode.commands.registerCommand('polacode.storeBgColor', bgColor => {
-    context.globalState.update('polacode.bgColor', bgColor)
-  })
-
   vscode.commands.registerCommand('polacode.activate', () => {
     vscode.commands
       .executeCommand('vscode.previewHtml', indexUri, 2, 'Polacode 📸', {
@@ -47,5 +43,13 @@ export function activate(context: vscode.ExtensionContext) {
           bgColor
         })
       })
+  })
+
+  vscode.commands.registerCommand('polacode._onmessage', ({ type, data }) => {
+    if (type === 'updateBgColor') {
+      context.globalState.update('polacode.bgColor', data.bgColor)
+    } else if (type === 'invalidPasteContent') {
+      vscode.window.showInformationMessage('Pasted content is invalid. Only copy from VS Code and check if your shortcuts for copy/paste have conflicts.')
+    }
   })
 }

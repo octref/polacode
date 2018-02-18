@@ -23,11 +23,20 @@ const serializeBlob = (blob, cb) => {
   fileReader.readAsArrayBuffer(blob)
 }
 
-function postMessage(command, args) {
+function postMessage(type, data) {
   window.parent.postMessage(
     {
       command: 'did-click-link',
-      data: `command:${command}?${encodeURIComponent(JSON.stringify(args))}`
+      data: `command:polacode._onmessage?${encodeURIComponent(JSON.stringify({ type, data }))}`
+    },
+    'file://'
+  )
+}
+function shoot(serializedBlob) {
+  window.parent.postMessage(
+    {
+      command: 'did-click-link',
+      data: `command:polacode.shoot?${encodeURIComponent(JSON.stringify(serializedBlob))}`
     },
     'file://'
   )
@@ -86,13 +95,17 @@ function stripInitialIndent(html, indent) {
 }
 
 document.addEventListener('paste', e => {
+  const innerHTML = e.clipboardData.getData('text/html')
+  if (!innerHTML.startsWith(`<meta charset='utf-8'>`)) {
+    postMessage('invalidPasteContent')
+    return
+  }
+
   const code = e.clipboardData.getData('text/plain')
   const minIndent = getMinIndent(code)
 
-  const innerHTML = e.clipboardData.getData('text/html')
-
   const snippetBgColor = getSnippetBgColor(innerHTML)
-  postMessage('polacode.storeBgColor', snippetBgColor)
+  postMessage('updateBgColor', { bgColor: snippetBgColor })
   updateEnvironment(snippetBgColor)
 
   if (minIndent !== 0) {
@@ -115,8 +128,8 @@ obturateur.addEventListener('click', () => {
   }
 
   domtoimage.toBlob(snippetContainerNode, config).then(blob => {
-    serializeBlob(blob, s => {
-      postMessage('polacode.shoot', s)
+    serializeBlob(blob, serializedBlob => {
+      shoot(serializedBlob)
     })
   })
 })
