@@ -15,6 +15,10 @@ const serializeBlob = (blob, cb) => {
     const bytes = new Uint8Array(fileReader.result)
     cb(Array.from(bytes).join(','))
   }
+  function getBrightness(color) {
+    const rgb = this.toRgb()
+    return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000
+  }
 
   fileReader.readAsArrayBuffer(blob)
 }
@@ -29,6 +33,17 @@ function postMessage(args) {
   )
 }
 
+function getBrightness(hexColor) {
+  const rgb = parseInt(hexColor.slice(1), 16)
+  const r = (rgb >> 16) & 0xff
+  const g = (rgb >> 8) & 0xff
+  const b = (rgb >> 0) & 0xff
+  return (r * 299 + g * 587 + b * 114) / 1000
+}
+function isDark(hexColor) {
+  return getBrightness(hexColor) < 128
+}
+
 function updateEnvironment(pastedHtml) {
   const bgColor = pastedHtml.match(/background-color: (#[a-fA-F0-9]+)/)[1]
 
@@ -36,6 +51,11 @@ function updateEnvironment(pastedHtml) {
   document.getElementById('snippet').style.backgroundColor = bgColor
 
   // update backdrop color
+  if (isDark(bgColor)) {
+    snippetContainerNode.style.backgroundColor = '#f2f2f2'
+  } else {
+    snippetContainerNode.style.background = 'none'
+  }
 }
 
 function getMinIndent(code) {
