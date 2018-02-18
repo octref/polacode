@@ -48,7 +48,7 @@ Thanks to [@tsayen](https://github.com/tsayen) for making [dom-to-image](https:/
 
 Thanks to [Dawn Labs](https://dawnlabs.io) for making [Carbon](https://carbon.now.sh) that inspired Polacode.
 
-Many color are taken from the elegant [Nord](https://github.com/arcticicestudio/nord) theme by [arcticicestudio](https://github.com/arcticicestudio).
+Many color are taken from the elegant [Nord](https://github.com/arcticicestudio/nord) theme by [@arcticicestudio](https://github.com/arcticicestudio).
 
 Download button animation is made with [Vivus](https://github.com/maxwellito/vivus).
 
