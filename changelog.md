@@ -6,6 +6,7 @@
 - Remove backdrop for snippet with light background.
 - Find the line with smallest indentation and detract that indentation from all lines.
 - Add `polacode.shoot` command that you can bind command to.
+- Remember last used image save path.
 - Wrap when code is longer than Polacode preview.
 - Initialize with correct fontFamily.
 
