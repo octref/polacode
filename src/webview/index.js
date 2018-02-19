@@ -96,7 +96,7 @@ function stripInitialIndent(html, indent) {
 
 document.addEventListener('paste', e => {
   const innerHTML = e.clipboardData.getData('text/html')
-  if (!innerHTML.startsWith(`<meta charset='utf-8'>`)) {
+  if (!innerHTML.startsWith(`<meta`)) {
     postMessage('invalidPasteContent')
     return
   }
