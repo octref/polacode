@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.1 | 2018-02-19
+
+- Fix an issue where Polacode incorrectly reports "Pasted content is invalid".
+
 ### 0.2.0 | 2018-02-16
 
 - Add warning when pasted content is not valid HTML copy-pasted from VS Code.
