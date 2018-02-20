@@ -96,10 +96,6 @@ function stripInitialIndent(html, indent) {
 
 document.addEventListener('paste', e => {
   const innerHTML = e.clipboardData.getData('text/html')
-  if (!innerHTML.startsWith(`<meta`)) {
-    postMessage('invalidPasteContent')
-    return
-  }
 
   const code = e.clipboardData.getData('text/plain')
   const minIndent = getMinIndent(code)
