@@ -5,7 +5,7 @@ import * as domtoimage from 'dom-to-image'
 
 
 /** Constants */
-const CAMERA_WITH_FLASH_EMOJI = String.fromCharCode(55357) // "📸"
+const CAMERA_WITH_FLASH_EMOJI = String.fromCodePoint(128248) // "📸"
 
 
 const snippetNode = document.getElementById('snippet')
