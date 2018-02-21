@@ -143,13 +143,13 @@ obturateur.addEventListener('mouseover', () => {
       {
         duration: 40,
         onReady: () => {
-          obturateur.classList = 'obturateur filling'
+          obturateur.className = 'obturateur filling'
         }
       },
       () => {
         setTimeout(() => {
           isInAnimation = false
-          obturateur.classList = 'obturateur'
+          obturateur.className = 'obturateur'
         }, 700)
       }
     )
