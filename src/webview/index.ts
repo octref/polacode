@@ -1,11 +1,20 @@
+'use strict';
+/** Imports */
+import * as Vivus from 'vivus'
+import * as domtoimage from 'dom-to-image'
+
+
+/** Constants */
+const CAMERA_WITH_FLASH_EMOJI = String.fromCharCode(55357) // "📸"
+
+
 const snippetNode = document.getElementById('snippet')
 const snippetContainerNode = document.getElementById('snippet-container')
 const obturateur = document.getElementById('save')
 
 const getInitialHtml = fontFamily => {
-  const cameraWithFlashEmoji = String.fromCodePoint(128248)
   const monoFontStack = `${fontFamily},SFMono-Regular,Consolas,DejaVu Sans Mono,Ubuntu Mono,Liberation Mono,Menlo,Courier,monospace`
-  return `<meta charset="utf-8"><div style="color: #d8dee9;background-color: #2e3440; font-family: ${monoFontStack};font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">0. Run command \`Polacode ${cameraWithFlashEmoji}\`</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">1. Copy some code</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">2. Paste into Polacode view</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">3. Click the button ${cameraWithFlashEmoji}</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div></div></div>`
+  return `<meta charset="utf-8"><div style="color: #d8dee9;background-color: #2e3440; font-family: ${monoFontStack};font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">0. Run command \`Polacode ${CAMERA_WITH_FLASH_EMOJI}\`</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">1. Copy some code</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">2. Paste into Polacode view</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">3. Click the button ${CAMERA_WITH_FLASH_EMOJI}</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div></div></div>`
 }
 
 const serializeBlob = (blob, cb) => {
@@ -89,12 +98,14 @@ function stripInitialIndent(html, indent) {
   const doc = new DOMParser().parseFromString(html, 'text/html')
   const initialSpans = doc.querySelectorAll('div > div span:first-child')
   for (let i = 0; i < initialSpans.length; i++) {
-    initialSpans[i].innerText = initialSpans[i].innerText.slice(indent)
+    const initialSpan = initialSpans[i]
+
+    initialSpan.textContent = initialSpan.textContent.slice(indent)
   }
   return doc.body.innerHTML
 }
 
-document.addEventListener('paste', e => {
+document.addEventListener('paste', (e: ClipboardEvent) => {
   const innerHTML = e.clipboardData.getData('text/html')
 
   const code = e.clipboardData.getData('text/plain')
@@ -141,13 +152,13 @@ obturateur.addEventListener('mouseover', () => {
       {
         duration: 40,
         onReady: () => {
-          obturateur.classList = 'obturateur filling'
+          obturateur.className = 'obturateur filling'
         }
       },
       () => {
         setTimeout(() => {
           isInAnimation = false
-          obturateur.classList = 'obturateur'
+          obturateur.className = 'obturateur'
         }, 700)
       }
     )
@@ -170,7 +181,7 @@ window.addEventListener('message', e => {
         snippetContainerNode.style.background = 'none'
       }
 
-      snippetContainerNode.style.opacity = 1
+      snippetContainerNode.style.opacity = '1'
     }
   }
 })
