@@ -89,7 +89,9 @@ function stripInitialIndent(html, indent) {
   const doc = new DOMParser().parseFromString(html, 'text/html')
   const initialSpans = doc.querySelectorAll('div > div span:first-child')
   for (let i = 0; i < initialSpans.length; i++) {
-    initialSpans[i].innerText = initialSpans[i].innerText.slice(indent)
+    const initialSpan = initialSpans[i]
+
+    initialSpan.textContent = initialSpan.textContent.slice(indent)
   }
   return doc.body.innerHTML
 }
