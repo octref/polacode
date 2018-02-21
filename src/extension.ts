@@ -9,7 +9,7 @@ const writeSerializedBlobToFile = (serializeBlob, fileName) => {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  const htmlPath = path.resolve(context.extensionPath, 'src/webview/index.html')
+  const htmlPath = path.resolve(context.extensionPath, 'out/src/webview/index.html')
   const indexUri = vscode.Uri.file(htmlPath)
 
   let lastUsedImageUri = vscode.Uri.file(path.resolve(homedir(), 'Desktop/code.png'))
