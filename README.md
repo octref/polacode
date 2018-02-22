@@ -52,6 +52,11 @@ Many color are taken from the elegant [Nord](https://github.com/arcticicestudio/
 
 Download button animation is made with [Vivus](https://github.com/maxwellito/vivus).
 
+## Contribution
+
+Contribution is extremely unwelcome.  
+Please open an issue first so I can stop you from complicating the UX.
+
 ## License
 
 MIT
