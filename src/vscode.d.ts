@@ -137,7 +137,7 @@ declare module 'vscode' {
 		save(): Thenable<boolean>;
 
 		/**
-		 * The [end of line](#EndOfLine) sequence that is predominately
+		 * The [end of line](#EndOfLine) sequence that is predominantly
 		 * used in this document.
 		 */
 		readonly eol: EndOfLine;
@@ -477,7 +477,7 @@ declare module 'vscode' {
 		active: Position;
 
 		/**
-		 * Create a selection from two postions.
+		 * Create a selection from two positions.
 		 *
 		 * @param anchor A position.
 		 * @param active A position.
@@ -977,7 +977,7 @@ declare module 'vscode' {
 
 		/**
 		 * Render options applied to the current decoration. For performance reasons, keep the
-		 * number of decoration specific options small, and use decoration types whereever possible.
+		 * number of decoration specific options small, and use decoration types wherever possible.
 		 */
 		renderOptions?: DecorationInstanceRenderOptions;
 	}
@@ -1243,7 +1243,7 @@ declare module 'vscode' {
 		 * [Uri.parse](#Uri.parse).
 		 *
 		 * @param skipEncoding Do not percentage-encode the result, defaults to `false`. Note that
-		 *	the `#` and `?` characters occuring in the path will always be encoded.
+		 *	the `#` and `?` characters occurring in the path will always be encoded.
 		 * @returns A string representation of this Uri.
 		 */
 		toString(skipEncoding?: boolean): string;
@@ -2912,7 +2912,7 @@ declare module 'vscode' {
 	 * Providers can delay the computation of the [`detail`](#CompletionItem.detail)
 	 * and [`documentation`](#CompletionItem.documentation) properties by implementing the
 	 * [`resolveCompletionItem`](#CompletionItemProvider.resolveCompletionItem)-function. However, properties that
-	 * are needed for the inital sorting and filtering, like `sortText`, `filterText`, `insertText`, and `range`, must
+	 * are needed for the initial sorting and filtering, like `sortText`, `filterText`, `insertText`, and `range`, must
 	 * not be changed during resolve.
 	 *
 	 * Providers are asked for completions either explicitly by a user gesture or -depending on the configuration-
@@ -6239,7 +6239,7 @@ declare module 'vscode' {
 
 /**
  * Thenable is a common denominator between ES6 promises, Q, jquery.Deferred, WinJS.Promise,
- * and others. This API makes no assumption about what promise libary is being used which
+ * and others. This API makes no assumption about what promise library is being used which
  * enables reusing existing code without migrating to a specific promise implementation. Still,
  * we recommend the use of native promises which are available in this editor.
  */
