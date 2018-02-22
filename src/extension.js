@@ -45,6 +45,15 @@ function activate(context) {
       })
   })
 
+  vscode.window.onDidChangeTextEditorSelection(e => {
+    if (e.selections[0] && !e.selections[0].isEmpty) {
+      vscode.commands.executeCommand('editor.action.clipboardCopyAction')
+      vscode.commands.executeCommand('_workbench.htmlPreview.postMessage', indexUri, {
+        type: 'update'
+      })
+    }
+  })
+
   vscode.commands.registerCommand('polacode._onmessage', ({ type, data }) => {
     if (type === 'updateBgColor') {
       context.globalState.update('polacode.bgColor', data.bgColor)

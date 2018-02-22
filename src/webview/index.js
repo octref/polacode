@@ -56,7 +56,6 @@ function getSnippetBgColor(html) {
   return html.match(/background-color: (#[a-fA-F0-9]+)/)[1]
 }
 
-
 function updateEnvironment(snippetBgColor) {
   // update snippet bg color
   document.getElementById('snippet').style.backgroundColor = snippetBgColor
@@ -171,6 +170,8 @@ window.addEventListener('message', e => {
       }
 
       snippetContainerNode.style.opacity = 1
+    } else if (e.data.type === 'update') {
+      document.execCommand('paste')
     }
   }
 })
