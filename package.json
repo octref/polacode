@@ -15,17 +15,17 @@
     "snippet",
     "share"
   ],
-  "engines": {
-    "vscode": "^1.19.0"
-  },
   "galleryBanner": {
     "color": "#fbfbfb",
     "theme": "light"
   },
   "icon": "icon.png",
   "categories": ["Other"],
+  "engines": {
+    "vscode": "^1.19.0"
+  },
   "activationEvents": ["onCommand:polacode.activate"],
-  "main": "./out/src/extension",
+  "main": "./src/extension",
   "contributes": {
     "commands": [
       {
@@ -33,17 +33,5 @@
         "title": "Polacode 📸"
       }
     ]
-  },
-  "scripts": {
-    "vscode:prepublish": "tsc -p ./",
-    "compile": "tsc -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install"
-  },
-  "devDependencies": {
-    "typescript": "^2.0.3",
-    "vscode": "^1.0.0",
-    "mocha": "^2.3.3",
-    "@types/node": "^6.0.40",
-    "@types/mocha": "^2.2.32"
   }
 }
