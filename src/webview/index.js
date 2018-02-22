@@ -88,7 +88,7 @@ function stripInitialIndent(html, indent) {
   const doc = new DOMParser().parseFromString(html, 'text/html')
   const initialSpans = doc.querySelectorAll('div > div span:first-child')
   for (let i = 0; i < initialSpans.length; i++) {
-    initialSpans[i].innerText = initialSpans[i].innerText.slice(indent)
+    initialSpans[i].textContent = initialSpans[i].textContent.slice(indent)
   }
   return doc.body.innerHTML
 }
@@ -140,13 +140,13 @@ obturateur.addEventListener('mouseover', () => {
       {
         duration: 40,
         onReady: () => {
-          obturateur.classList = 'obturateur filling'
+          obturateur.className = 'obturateur filling'
         }
       },
       () => {
         setTimeout(() => {
           isInAnimation = false
-          obturateur.classList = 'obturateur'
+          obturateur.className = 'obturateur'
         }, 700)
       }
     )
@@ -169,7 +169,7 @@ window.addEventListener('message', e => {
         snippetContainerNode.style.background = 'none'
       }
 
-      snippetContainerNode.style.opacity = 1
+      snippetContainerNode.style.opacity = '1'
     } else if (e.data.type === 'update') {
       document.execCommand('paste')
     }
