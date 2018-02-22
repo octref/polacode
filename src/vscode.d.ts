@@ -137,7 +137,7 @@ declare module 'vscode' {
 		save(): Thenable<boolean>;
 
 		/**
-		 * The [end of line](#EndOfLine) sequence that is predominately
+		 * The [end of line](#EndOfLine) sequence that is predominantly
 		 * used in this document.
 		 */
 		readonly eol: EndOfLine;
