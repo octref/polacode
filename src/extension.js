@@ -37,10 +37,12 @@ function activate(context) {
       .then(() => {
         const fontFamily = vscode.workspace.getConfiguration('editor').fontFamily
         const bgColor = context.globalState.get('polacode.bgColor', '#2e3440')
+        const transparentBackground = vscode.workspace.getConfiguration("polacode").transparentBackground
         vscode.commands.executeCommand('_workbench.htmlPreview.postMessage', indexUri, {
           type: 'init',
           fontFamily,
-          bgColor
+          bgColor,
+          transparentBackground
         })
       })
   })
