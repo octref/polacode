@@ -1,6 +1,7 @@
 const snippetNode = document.getElementById('snippet')
 const snippetContainerNode = document.getElementById('snippet-container')
 const obturateur = document.getElementById('save')
+let transparentBackground = false
 
 const getInitialHtml = fontFamily => {
   const cameraWithFlashEmoji = String.fromCodePoint(128248)
@@ -111,20 +112,34 @@ document.addEventListener('paste', e => {
 })
 
 obturateur.addEventListener('click', () => {
+  const snippetContainerClone = snippetContainerNode.cloneNode(true)
+  const snippetClone = snippetContainerClone.querySelector('#snippet')
   const width = snippetContainerNode.offsetWidth * 2
   const height = snippetContainerNode.offsetHeight * 2
+
+  snippetContainerClone.style.opacity = '0'
+
+  if (transparentBackground) {
+    snippetContainerClone.style.backgroundColor = 'transparent'
+    snippetClone.style.boxShadow = 'none'
+  }
+  
   const config = {
     width,
     height,
     style: {
       transform: 'scale(2)',
-      'transform-origin': 'left top'
+      'transform-origin': 'left top',
+      opacity: 1
     }
   }
 
-  domtoimage.toBlob(snippetContainerNode, config).then(blob => {
+  document.body.appendChild(snippetContainerClone)
+
+  domtoimage.toBlob(snippetContainerClone, config).then(blob => {
     serializeBlob(blob, serializedBlob => {
       shoot(serializedBlob)
+      snippetContainerClone.remove()
     })
   })
 })
@@ -157,6 +172,7 @@ window.addEventListener('message', e => {
   if (e) {
     if (e.data.type === 'init') {
       const { fontFamily, bgColor } = e.data
+      transparentBackground = e.data.transparentBackground
 
       const initialHtml = getInitialHtml(fontFamily)
       snippetNode.innerHTML = initialHtml
