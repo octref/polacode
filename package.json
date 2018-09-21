@@ -58,7 +58,7 @@
 				},
 				"polacode.container.backgroundColor": {
 					"type": "string",
-					"default": "#eeeeee",
+					"default": "#f2f2f2",
 					"description": "Specifies the background color that will be applied to the container"
 				}
 			}
