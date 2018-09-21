@@ -156,15 +156,16 @@ obturateur.addEventListener('mouseover', () => {
 window.addEventListener('message', e => {
   if (e) {
     if (e.data.type === 'init') {
-      const { fontFamily, bgColor } = e.data
+      const { fontFamily, bgColor, customizations } = e.data
 
       const initialHtml = getInitialHtml(fontFamily)
       snippetNode.innerHTML = initialHtml
 
-      // update backdrop color, using bgColor from last pasted snippet
-      // cannot deduce from initialHtml since it's always using Nord color
+      // update container padding and background color using user settings
+      snippetContainerNode.style.padding = `${customizations.paddingTop}px ${customizations.paddingRight}px ${customizations.paddingBottom}px ${customizations.paddingLeft}px`;
+
       if (isDark(bgColor)) {
-        snippetContainerNode.style.backgroundColor = '#f2f2f2'
+        snippetContainerNode.style.backgroundColor = customizations.backgroundColor
       } else {
         snippetContainerNode.style.background = 'none'
       }

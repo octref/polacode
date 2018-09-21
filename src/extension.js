@@ -2,6 +2,7 @@ const vscode = require('vscode')
 const path = require('path')
 const { writeFileSync } = require('fs')
 const { homedir } = require('os')
+const customizations = vscode.workspace.getConfiguration("polacode").container;
 
 const writeSerializedBlobToFile = (serializeBlob, fileName) => {
   const bytes = new Uint8Array(serializeBlob.split(','))
@@ -40,7 +41,8 @@ function activate(context) {
         vscode.commands.executeCommand('_workbench.htmlPreview.postMessage', indexUri, {
           type: 'init',
           fontFamily,
-          bgColor
+          bgColor,
+          customizations
         })
       })
   })
