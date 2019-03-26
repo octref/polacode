@@ -24,7 +24,7 @@
     "Other"
   ],
   "engines": {
-    "vscode": "^1.19.0"
+    "vscode": "^1.32.0"
   },
   "activationEvents": [
     "onCommand:polacode.activate"
