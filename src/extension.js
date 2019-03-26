@@ -1,4 +1,5 @@
 const vscode = require('vscode')
+const fs = require('fs')
 const path = require('path')
 const { writeFileSync } = require('fs')
 const { homedir } = require('os')
@@ -8,8 +9,13 @@ const writeSerializedBlobToFile = (serializeBlob, fileName) => {
   writeFileSync(fileName, new Buffer(bytes))
 }
 
+const P_TITLE = 'Polacode 📸'
+
+/**
+ * @param {vscode.ExtensionContext} context 
+ */
 function activate(context) {
-  const htmlPath = path.resolve(context.extensionPath, 'src/webview/index.html')
+  const htmlPath = path.resolve(context.extensionPath, 'webview/index.html')
   const indexUri = vscode.Uri.file(htmlPath)
 
   let lastUsedImageUri = vscode.Uri.file(path.resolve(homedir(), 'Desktop/code.png'))
@@ -30,19 +36,28 @@ function activate(context) {
   })
 
   vscode.commands.registerCommand('polacode.activate', () => {
-    vscode.commands
-      .executeCommand('vscode.previewHtml', indexUri, 2, 'Polacode 📸', {
-        allowScripts: true
-      })
-      .then(() => {
-        const fontFamily = vscode.workspace.getConfiguration('editor').fontFamily
-        const bgColor = context.globalState.get('polacode.bgColor', '#2e3440')
-        vscode.commands.executeCommand('_workbench.htmlPreview.postMessage', indexUri, {
-          type: 'init',
-          fontFamily,
-          bgColor
-        })
-      })
+    const panel = vscode.window.createWebviewPanel('polacode', P_TITLE, 2, {
+      enableScripts: true,
+      localResourceRoots: [
+        vscode.Uri.file(path.join(context.extensionPath, 'webview'))
+      ]
+    });
+    
+    panel.webview.html = fs.readFileSync(htmlPath, 'utf-8')
+
+    // vscode.commands
+    //   .executeCommand('vscode.previewHtml', indexUri, 2, 'Polacode 📸', {
+    //     allowScripts: true,
+    //   })
+    //   .then(() => {
+    //     const fontFamily = vscode.workspace.getConfiguration('editor').fontFamily
+    //     const bgColor = context.globalState.get('polacode.bgColor', '#2e3440')
+    //     vscode.commands.executeCommand('_workbench.htmlPreview.postMessage', indexUri, {
+    //       type: 'init',
+    //       fontFamily,
+    //       bgColor
+    //     })
+    //   })
   })
 
   vscode.window.onDidChangeTextEditorSelection(e => {
