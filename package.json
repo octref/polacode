@@ -27,7 +27,8 @@
     "vscode": "^1.32.0"
   },
   "activationEvents": [
-    "onCommand:polacode.activate"
+    "onCommand:polacode.activate",
+    "onWebviewPanel:polacode"
   ],
   "main": "./src/extension",
   "contributes": {

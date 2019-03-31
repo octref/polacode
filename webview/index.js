@@ -5,6 +5,12 @@
   const snippetContainerNode = document.getElementById('snippet-container')
   const obturateur = document.getElementById('save')
 
+  snippetContainerNode.style.opacity = '1'
+  const oldState = vscode.getState();
+  if (oldState && oldState.innerHTML) {
+    snippetNode.innerHTML = oldState.innerHTML
+  }
+
   const getInitialHtml = fontFamily => {
     const cameraWithFlashEmoji = String.fromCodePoint(128248)
     const monoFontStack = `${fontFamily},SFMono-Regular,Consolas,DejaVu Sans Mono,Ubuntu Mono,Liberation Mono,Menlo,Courier,monospace`
@@ -106,6 +112,8 @@
     } else {
       snippetNode.innerHTML = innerHTML
     }
+
+    vscode.setState({ innerHTML })
   })
 
   obturateur.addEventListener('click', () => {
@@ -158,6 +166,7 @@
 
         const initialHtml = getInitialHtml(fontFamily)
         snippetNode.innerHTML = initialHtml
+        vscode.setState({ innerHTML: initialHtml })
 
         // update backdrop color, using bgColor from last pasted snippet
         // cannot deduce from initialHtml since it's always using Nord color
@@ -167,9 +176,10 @@
           snippetContainerNode.style.background = 'none'
         }
 
-        snippetContainerNode.style.opacity = '1'
       } else if (e.data.type === 'update') {
         document.execCommand('paste')
+      } else if (e.data.type === 'restore') {
+        snippetNode.innerHTML = e.data.innerHTML
       }
     }
   })

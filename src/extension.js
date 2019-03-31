@@ -16,15 +16,26 @@ const P_TITLE = 'Polacode 📸'
  */
 function activate(context) {
   const htmlPath = path.resolve(context.extensionPath, 'webview/index.html')
-  const indexUri = vscode.Uri.file(htmlPath)
 
   let lastUsedImageUri = vscode.Uri.file(path.resolve(homedir(), 'Desktop/code.png'))
   let panel
 
+  vscode.window.registerWebviewPanelSerializer('polacode', {
+    async deserializeWebviewPanel(panel, state) {
+      panel = panel
+      panel.webview.html = getHtmlContent(htmlPath)
+      panel.webview.postMessage({
+        type: 'restore',
+        innerHTML: state.innerHTML,
+      })
+    }
+  })
+
   vscode.commands.registerCommand('polacode.activate', () => {
     panel = vscode.window.createWebviewPanel('polacode', P_TITLE, 2, {
       enableScripts: true,
-      localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'webview'))]
+      localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'webview'))],
+      // retainContextWhenHidden: true
     })
 
     panel.webview.html = getHtmlContent(htmlPath)
