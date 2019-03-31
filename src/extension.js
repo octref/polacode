@@ -34,8 +34,7 @@ function activate(context) {
   vscode.commands.registerCommand('polacode.activate', () => {
     panel = vscode.window.createWebviewPanel('polacode', P_TITLE, 2, {
       enableScripts: true,
-      localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'webview'))],
-      // retainContextWhenHidden: true
+      localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'webview'))]
     })
 
     panel.webview.html = getHtmlContent(htmlPath)
