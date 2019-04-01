@@ -1,12 +1,11 @@
 const vscode = require('vscode')
 const fs = require('fs')
 const path = require('path')
-const { writeFileSync } = require('fs')
 const { homedir } = require('os')
 
 const writeSerializedBlobToFile = (serializeBlob, fileName) => {
   const bytes = new Uint8Array(serializeBlob.split(','))
-  writeFileSync(fileName, Buffer.from(bytes))
+  fs.writeFileSync(fileName, Buffer.from(bytes))
 }
 
 const P_TITLE = 'Polacode 📸'
