@@ -60,8 +60,8 @@
             "snippet"
           ],
           "enumDescriptions": [
-            "Shoot with the container. You can set `background` to transparent to retain padding.",
-            "Shoow with the snippet alone."
+            "Shoot with the container.",
+            "Shoot with the snippet alone. If you want transparent padding, use `container` with `\"polacode.transparentBackground\": true`"
           ]
         }
       }
