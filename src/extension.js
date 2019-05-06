@@ -26,6 +26,7 @@ function activate(context) {
       panel.webview.postMessage({
         type: 'restore',
         innerHTML: state.innerHTML,
+        bgColor: context.globalState.get('polacode.bgColor', '#2e3440')
       })
     }
   })
@@ -54,6 +55,12 @@ function activate(context) {
                 lastUsedImageUri = uri
               }
             })
+          break
+        case 'getAndUpdateBgColor':
+          panel.webview.postMessage({
+            type: 'restoreBgColor',
+            bgColor: context.globalState.get('polacode.bgColor', '#2e3440')
+          })
           break
         case 'updateBgColor':
           context.globalState.update('polacode.bgColor', data.bgColor)

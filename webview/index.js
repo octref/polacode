@@ -1,6 +1,10 @@
 ;(function() {
   const vscode = acquireVsCodeApi()
 
+  vscode.postMessage({
+    type: 'getAndUpdateBgColor'
+  })
+
   const snippetNode = document.getElementById('snippet')
   const snippetContainerNode = document.getElementById('snippet-container')
   const obturateur = document.getElementById('save')
@@ -52,7 +56,8 @@
     return getBrightness(hexColor) < 128
   }
   function getSnippetBgColor(html) {
-    return html.match(/background-color: (#[a-fA-F0-9]+)/)[1]
+    const match = html.match(/background-color: (#[a-fA-F0-9]+)/)
+    return match[1] ? match[1] : undefined;
   }
 
   function updateEnvironment(snippetBgColor) {
@@ -99,13 +104,15 @@
     const minIndent = getMinIndent(code)
 
     const snippetBgColor = getSnippetBgColor(innerHTML)
-    vscode.postMessage({
-      type: 'updateBgColor',
-      data: {
-        bgColor: snippetBgColor 
-      }
-    })
-    updateEnvironment(snippetBgColor)
+    if (snippetBgColor) {
+      vscode.postMessage({
+        type: 'updateBgColor',
+        data: {
+          bgColor: snippetBgColor
+        }
+      })
+      updateEnvironment(snippetBgColor)
+    }
 
     if (minIndent !== 0) {
       snippetNode.innerHTML = stripInitialIndent(innerHTML, minIndent)
@@ -180,6 +187,9 @@
         document.execCommand('paste')
       } else if (e.data.type === 'restore') {
         snippetNode.innerHTML = e.data.innerHTML
+        updateEnvironment(e.data.bgColor)
+      } else if (e.data.type === 'restoreBgColor') {
+        updateEnvironment(e.data.bgColor)
       }
     }
   })
