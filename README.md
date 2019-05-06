@@ -24,6 +24,11 @@ The code has to look right.
 - I want to hide errors, warnings, color decorators, folding markers, line numbers, scrollbar and minimap.
 - It generates something decent on Windows & Linux.
 
+## Tips
+
+- Resize the snippet / container by dragging the lowerright corner
+- Use `polacode.target`, `polacode.shadow` and `polacode.background` to control image appearance
+
 ## Demo
 
 [Nord](https://github.com/arcticicestudio/nord-visual-studio-code) + [Input Mono](http://input.fontbureau.com)
@@ -38,10 +43,6 @@ The code has to look right.
 
 ![demo3](https://raw.githubusercontent.com/octref/polacode/master/demo/3.png)
 
-## Tip
-
-- When running out of horizontal space, try the command `View: Toggle Editor Group Vertical/Horizontal Layout`.
-
 ## Credit
 
 Thanks to [@tsayen](https://github.com/tsayen) for making [dom-to-image](https://github.com/tsayen/dom-to-image), which Polacode is using for generating the images.
@@ -54,7 +55,7 @@ Download button animation is made with [Vivus](https://github.com/maxwellito/viv
 
 ## Contribution
 
-Contribution is extremely unwelcome.  
+Contribution is not very welcome.
 Please open an issue first so I can stop you from complicating the UX.
 
 ## License
