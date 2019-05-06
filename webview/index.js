@@ -1,8 +1,10 @@
 ;(function() {
   const vscode = acquireVsCodeApi()
 
+  let target = 'container'
+
   vscode.postMessage({
-    type: 'getAndUpdateBgColor'
+    type: 'getAndUpdateCacheAndSettings'
   })
 
   const snippetNode = document.getElementById('snippet')
@@ -57,7 +59,7 @@
   }
   function getSnippetBgColor(html) {
     const match = html.match(/background-color: (#[a-fA-F0-9]+)/)
-    return match[1] ? match[1] : undefined;
+    return match ? match[1] : undefined;
   }
 
   function updateEnvironment(snippetBgColor) {
@@ -124,6 +126,14 @@
   })
 
   obturateur.addEventListener('click', () => {
+    if (target === 'container') {
+      shootAll() 
+    } else {
+      shootSnippet()
+    }
+  })
+
+  function shootAll() {
     const width = snippetContainerNode.offsetWidth * 2
     const height = snippetContainerNode.offsetHeight * 2
     const config = {
@@ -131,16 +141,49 @@
       height,
       style: {
         transform: 'scale(2)',
-        'transform-origin': 'left top'
+        'transform-origin': 'center'
       }
     }
 
+    // Hide resizer before capture
+    snippetNode.style.resize = 'none'
+    snippetContainerNode.style.resize = 'none'
+
     domtoimage.toBlob(snippetContainerNode, config).then(blob => {
+      snippetNode.style.resize = ''
+      snippetContainerNode.style.resize = ''
       serializeBlob(blob, serializedBlob => {
         shoot(serializedBlob)
       })
     })
-  })
+  }
+
+  function shootSnippet() {
+    const width = snippetNode.offsetWidth * 2
+    const height = snippetNode.offsetHeight * 2
+    const config = {
+      width,
+      height,
+      style: {
+        transform: 'scale(2)',
+        'transform-origin': 'center',
+        padding: 0,
+        background: 'none'
+      }
+    }
+
+    // Hide resizer before capture
+    snippetNode.style.resize = 'none'
+    snippetContainerNode.style.resize = 'none'
+
+    domtoimage.toBlob(snippetContainerNode, config).then(blob => {
+      snippetNode.style.resize = ''
+      snippetContainerNode.style.resize = ''
+      serializeBlob(blob, serializedBlob => {
+        shoot(serializedBlob)
+      })
+    })
+  }
 
   let isInAnimation = false
 
@@ -190,6 +233,10 @@
         updateEnvironment(e.data.bgColor)
       } else if (e.data.type === 'restoreBgColor') {
         updateEnvironment(e.data.bgColor)
+      } else if (e.data.type === 'updateSettings') {
+        snippet.style.boxShadow = e.data.shadow
+        target = e.data.target
+        snippetContainerNode.style.background = e.data.background
       }
     }
   })

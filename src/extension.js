@@ -56,11 +56,13 @@ function activate(context) {
               }
             })
           break
-        case 'getAndUpdateBgColor':
+        case 'getAndUpdateCacheAndSettings':
           panel.webview.postMessage({
             type: 'restoreBgColor',
             bgColor: context.globalState.get('polacode.bgColor', '#2e3440')
           })
+
+          syncSettings()
           break
         case 'updateBgColor':
           context.globalState.update('polacode.bgColor', data.bgColor)
@@ -80,13 +82,37 @@ function activate(context) {
       fontFamily,
       bgColor
     })
+
+    syncSettings()
   })
+
+  function syncSettings() {
+    const settings = vscode.workspace.getConfiguration('polacode')
+    panel.webview.postMessage({
+      type: 'updateSettings',
+      shadow: settings.get('shadow'),
+      background: settings.get('background'),
+      target: settings.get('target')
+    })
+  }
 
   vscode.window.onDidChangeTextEditorSelection(e => {
     if (e.selections[0] && !e.selections[0].isEmpty) {
       vscode.commands.executeCommand('editor.action.clipboardCopyAction')
       panel.postMessage({
         type: 'update'
+      })
+    }
+  })
+
+  vscode.workspace.onDidChangeConfiguration(e => {
+    if (e.affectsConfiguration('polacode')) {
+      const settings = vscode.workspace.getConfiguration('polacode')
+      panel.webview.postMessage({
+        type: 'updateSettings',
+        shadow: settings.get('shadow'),
+        background: settings.get('background'),
+        target: settings.get('target')
       })
     }
   })

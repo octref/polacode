@@ -37,7 +37,31 @@
         "command": "polacode.activate",
         "title": "Polacode 📸"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Polacode",
+      "properties": {
+        "polacode.shadow": {
+          "type": "string",
+          "description": "Shadow of the snippet node",
+          "default": "rgba(0, 0, 0, 0.55) 0px 20px 68px"
+        },
+        "polacode.background": {
+          "type": "string",
+          "description": "Background of the container node",
+          "default": "rgba(242, 242, 242, 1)"
+        },
+        "polacode.target": {
+          "type": "string",
+          "description": "Shoot with or without container",
+          "default": "container",
+          "enum": [
+            "container",
+            "snippet"
+          ]
+        }
+      }
+    }
   },
   "devDependencies": {
     "@types/node": "^11.12.0",
