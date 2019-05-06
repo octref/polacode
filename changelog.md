@@ -3,6 +3,7 @@
 ### 0.3.0 | 2019-05-07
 
 - Major rewrite. See features in [#105](https://github.com/octref/polacode/pull/105).
+- Long token wrapping. Thanks to [OhYee](https://github.com/OhYee). [#104](https://github.com/octref/polacode/pull/104).
 
 ### 0.2.2 | 2018-02-19
 
