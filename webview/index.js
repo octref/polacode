@@ -2,6 +2,7 @@
   const vscode = acquireVsCodeApi()
 
   let target = 'container'
+  let transparentBackground = false
 
   vscode.postMessage({
     type: 'getAndUpdateCacheAndSettings'
@@ -141,7 +142,8 @@
       height,
       style: {
         transform: 'scale(2)',
-        'transform-origin': 'center'
+        'transform-origin': 'center',
+        background: `rgba(242, 242, 242, ${transparentBackground ? 0 : 1})`
       }
     }
 
@@ -236,7 +238,7 @@
       } else if (e.data.type === 'updateSettings') {
         snippet.style.boxShadow = e.data.shadow
         target = e.data.target
-        snippetContainerNode.style.background = e.data.background
+        transparentBackground = e.data.transparentBackground
       }
     }
   })

@@ -46,10 +46,10 @@
           "description": "Shadow of the snippet node. Use any value for CSS `box-shadow`",
           "default": "rgba(0, 0, 0, 0.55) 0px 20px 68px"
         },
-        "polacode.background": {
-          "type": "string",
-          "description": "Background of the container node. Use any value for CSS `background`",
-          "default": "rgba(242, 242, 242, 1)"
+        "polacode.transparentBackground": {
+          "type": "boolean",
+          "description": "Transparent background for containers",
+          "default": false
         },
         "polacode.target": {
           "type": "string",
