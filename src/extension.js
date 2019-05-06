@@ -20,14 +20,16 @@ function activate(context) {
   let panel
 
   vscode.window.registerWebviewPanelSerializer('polacode', {
-    async deserializeWebviewPanel(panel, state) {
-      panel = panel
+    async deserializeWebviewPanel(_panel, state) {
+      panel = _panel
       panel.webview.html = getHtmlContent(htmlPath)
       panel.webview.postMessage({
         type: 'restore',
         innerHTML: state.innerHTML,
         bgColor: context.globalState.get('polacode.bgColor', '#2e3440')
       })
+      setupSelectionSync()
+      setupMessageListeners()
     }
   })
 
@@ -39,6 +41,28 @@ function activate(context) {
 
     panel.webview.html = getHtmlContent(htmlPath)
 
+    setupMessageListeners()
+
+    const fontFamily = vscode.workspace.getConfiguration('editor').fontFamily
+    const bgColor = context.globalState.get('polacode.bgColor', '#2e3440')
+    panel.webview.postMessage({
+      type: 'init',
+      fontFamily,
+      bgColor
+    })
+
+    syncSettings()
+  })
+
+  vscode.workspace.onDidChangeConfiguration(e => {
+    if (e.affectsConfiguration('polacode') || e.affectsConfiguration('editor')) {
+      syncSettings()
+    }
+  })
+
+  setupSelectionSync()
+
+  function setupMessageListeners() {
     panel.webview.onDidReceiveMessage(({ type, data }) => {
       switch (type) {
         case 'shoot':
@@ -74,48 +98,30 @@ function activate(context) {
           break
       }
     })
-
-    const fontFamily = vscode.workspace.getConfiguration('editor').fontFamily
-    const bgColor = context.globalState.get('polacode.bgColor', '#2e3440')
-    panel.webview.postMessage({
-      type: 'init',
-      fontFamily,
-      bgColor
-    })
-
-    syncSettings()
-  })
+  }
 
   function syncSettings() {
     const settings = vscode.workspace.getConfiguration('polacode')
+    const editorSettings = vscode.workspace.getConfiguration('editor')
     panel.webview.postMessage({
       type: 'updateSettings',
       shadow: settings.get('shadow'),
       background: settings.get('background'),
-      target: settings.get('target')
+      target: settings.get('target'),
+      ligature: editorSettings.get('fontLigatures')
     })
   }
 
-  vscode.window.onDidChangeTextEditorSelection(e => {
-    if (e.selections[0] && !e.selections[0].isEmpty) {
-      vscode.commands.executeCommand('editor.action.clipboardCopyAction')
-      panel.postMessage({
-        type: 'update'
-      })
-    }
-  })
-
-  vscode.workspace.onDidChangeConfiguration(e => {
-    if (e.affectsConfiguration('polacode')) {
-      const settings = vscode.workspace.getConfiguration('polacode')
-      panel.webview.postMessage({
-        type: 'updateSettings',
-        shadow: settings.get('shadow'),
-        transparentBackground: settings.get('transparentBackground'),
-        target: settings.get('target')
-      })
-    }
-  })
+  function setupSelectionSync() {
+    vscode.window.onDidChangeTextEditorSelection(e => {
+      if (e.selections[0] && !e.selections[0].isEmpty) {
+        vscode.commands.executeCommand('editor.action.clipboardCopyAction')
+        panel.postMessage({
+          type: 'update'
+        })
+      }
+    })
+  }
 }
 
 function getHtmlContent(htmlPath) {

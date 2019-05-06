@@ -236,9 +236,14 @@
       } else if (e.data.type === 'restoreBgColor') {
         updateEnvironment(e.data.bgColor)
       } else if (e.data.type === 'updateSettings') {
-        snippet.style.boxShadow = e.data.shadow
+        snippetNode.style.boxShadow = e.data.shadow
         target = e.data.target
         transparentBackground = e.data.transparentBackground
+        if (e.data.ligature) {
+          snippetNode.style.fontVariantLigatures = 'normal'
+        } else {
+          snippetNode.style.fontVariantLigatures = 'none'
+        }
       }
     }
   })
