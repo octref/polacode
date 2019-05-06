@@ -9,8 +9,18 @@
       box-sizing: border-box;
       padding-top: 32px;
     }
+    body {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+    }
 
     #snippet-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      resize: both;
       background-color: #f2f2f2;
       padding: 22px;
       border-radius: 4px;
@@ -18,6 +28,8 @@
       transition: opacity .4s;
     }
     #snippet {
+      overflow: hidden;
+      resize: both;
       display: flex;
       padding: 18px;
       padding-bottom: 22px;
