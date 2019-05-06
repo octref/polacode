@@ -43,12 +43,12 @@
       "properties": {
         "polacode.shadow": {
           "type": "string",
-          "description": "Shadow of the snippet node",
+          "description": "Shadow of the snippet node. Use any value for CSS `box-shadow`",
           "default": "rgba(0, 0, 0, 0.55) 0px 20px 68px"
         },
         "polacode.background": {
           "type": "string",
-          "description": "Background of the container node",
+          "description": "Background of the container node. Use any value for CSS `background`",
           "default": "rgba(242, 242, 242, 1)"
         },
         "polacode.target": {
@@ -58,6 +58,10 @@
           "enum": [
             "container",
             "snippet"
+          ],
+          "enumDescriptions": [
+            "Shoot with the container. You can set `background` to transparent to retain padding.",
+            "Shoow with the snippet alone."
           ]
         }
       }
