@@ -20,11 +20,16 @@
     "theme": "light"
   },
   "icon": "icon.png",
-  "categories": ["Other"],
+  "categories": [
+    "Other"
+  ],
   "engines": {
-    "vscode": "^1.19.0"
+    "vscode": "^1.32.0"
   },
-  "activationEvents": ["onCommand:polacode.activate"],
+  "activationEvents": [
+    "onCommand:polacode.activate",
+    "onWebviewPanel:polacode"
+  ],
   "main": "./src/extension",
   "contributes": {
     "commands": [
@@ -32,6 +37,44 @@
         "command": "polacode.activate",
         "title": "Polacode 📸"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Polacode",
+      "properties": {
+        "polacode.shadow": {
+          "type": "string",
+          "description": "Shadow of the snippet node. Use any value for CSS `box-shadow`",
+          "default": "rgba(0, 0, 0, 0.55) 0px 20px 68px"
+        },
+        "polacode.transparentBackground": {
+          "type": "boolean",
+          "description": "Transparent background for containers",
+          "default": false
+        },
+        "polacode.backgroundColor": {
+          "type": "string",
+          "description": "Background color of snippet container. Use any value for CSS `background-color`",
+          "format": "color-hex",
+          "default": "#f2f2f2"
+        },
+        "polacode.target": {
+          "type": "string",
+          "description": "Shoot with or without container",
+          "default": "container",
+          "enum": [
+            "container",
+            "snippet"
+          ],
+          "enumDescriptions": [
+            "Shoot with the container.",
+            "Shoot with the snippet alone. If you want transparent padding, use `container` with `\"polacode.transparentBackground\": true`"
+          ]
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^11.12.0",
+    "@types/vscode": "^1.32.0"
   }
 }

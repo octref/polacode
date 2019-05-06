@@ -1,13 +1,9 @@
-# Polacode
+<p>
+  <h2 align="center">Polacode — Polaroid for your code 📸</h2>
+</p>
 
-Polaroid for your code 📸.
-
-[MarketPlace Page](https://marketplace.visualstudio.com/items?itemName=pnp.polacode)
-
-![usage](https://github.com/octref/polacode/raw/master/demo/usage.gif)
-
-By [Pine](https://github.com/octref) & [Peng](https://github.com/rebornix) from VS Code team.
-Happy Coding!
+<!-- ![usage](https://github.com/octref/polacode/raw/master/demo/usage.gif) -->
+![usage](./demo/usage.gif)
 
 ## Why?
 
@@ -18,11 +14,10 @@ You shell out $200 for [italic cursive html attributes](https://www.typography.c
 
 The code has to look right.
 
-## Seriously, why not just take a screenshot?
+## Tips
 
-- I like and care about the shadow, padding & rounded corner of macOS's screenshot. I want an easy way to have those nice visuals for any selection of my snippet.
-- I want to hide errors, warnings, color decorators, folding markers, line numbers, scrollbar and minimap.
-- It generates something decent on Windows & Linux.
+- Resize the snippet / container by dragging the lowerright corner
+- Use `polacode.target`, `polacode.shadow`, `polacode.transparentBackground` and `polacode.backgroundColor` to control image appearance
 
 ## Demo
 
@@ -38,10 +33,6 @@ The code has to look right.
 
 ![demo3](https://raw.githubusercontent.com/octref/polacode/master/demo/3.png)
 
-## Tip
-
-- When running out of horizontal space, try the command `View: Toggle Editor Group Vertical/Horizontal Layout`.
-
 ## Credit
 
 Thanks to [@tsayen](https://github.com/tsayen) for making [dom-to-image](https://github.com/tsayen/dom-to-image), which Polacode is using for generating the images.
@@ -54,7 +45,7 @@ Download button animation is made with [Vivus](https://github.com/maxwellito/viv
 
 ## Contribution
 
-Contribution is extremely unwelcome.  
+Contribution is not very welcome.
 Please open an issue first so I can stop you from complicating the UX.
 
 ## License
