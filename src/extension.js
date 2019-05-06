@@ -106,7 +106,8 @@ function activate(context) {
     panel.webview.postMessage({
       type: 'updateSettings',
       shadow: settings.get('shadow'),
-      background: settings.get('background'),
+      transparentBackground: settings.get('transparentBackground'),
+      backgroundColor: settings.get('backgroundColor'),
       target: settings.get('target'),
       ligature: editorSettings.get('fontLigatures')
     })

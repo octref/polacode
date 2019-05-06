@@ -51,6 +51,12 @@
           "description": "Transparent background for containers",
           "default": false
         },
+        "polacode.backgroundColor": {
+          "type": "string",
+          "description": "Background color of snippet container. Use any value for CSS `background-color`",
+          "format": "color-hex",
+          "default": "#f2f2f2"
+        },
         "polacode.target": {
           "type": "string",
           "description": "Shoot with or without container",

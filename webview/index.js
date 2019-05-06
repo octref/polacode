@@ -3,6 +3,7 @@
 
   let target = 'container'
   let transparentBackground = false
+  let backgroundColor = '#f2f2f2'
 
   vscode.postMessage({
     type: 'getAndUpdateCacheAndSettings'
@@ -143,7 +144,7 @@
       style: {
         transform: 'scale(2)',
         'transform-origin': 'center',
-        background: `rgba(242, 242, 242, ${transparentBackground ? 0 : 1})`
+        background: getRgba(backgroundColor, transparentBackground)
       }
     }
 
@@ -239,6 +240,8 @@
         snippetNode.style.boxShadow = e.data.shadow
         target = e.data.target
         transparentBackground = e.data.transparentBackground
+        snippetContainerNode.style.backgroundColor = e.data.backgroundColor
+        backgroundColor = e.data.backgroundColor
         if (e.data.ligature) {
           snippetNode.style.fontVariantLigatures = 'normal'
         } else {
@@ -248,3 +251,12 @@
     }
   })
 })()
+
+function getRgba(hex, transparentBackground) {
+  const bigint = parseInt(hex.slice(1), 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  const a = transparentBackground ? 0 : 1
+  return `rgba(${r}, ${g}, ${b}, ${a})`
+}
