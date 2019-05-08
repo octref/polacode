@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.3.1 | 2019-05-07
+
+- Dispose selection sync after closing Polacode window so selection no longer jams clipboard. #107.
+
 ### 0.3.0 | 2019-05-07
 
 - Major rewrite. See features in [#105](https://github.com/octref/polacode/pull/105).

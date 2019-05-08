@@ -28,7 +28,10 @@ function activate(context) {
         innerHTML: state.innerHTML,
         bgColor: context.globalState.get('polacode.bgColor', '#2e3440')
       })
-      setupSelectionSync()
+      const selectionListener = setupSelectionSync()
+      panel.onDidDispose(() => {
+        selectionListener.dispose()
+      })
       setupMessageListeners()
     }
   })
@@ -40,6 +43,11 @@ function activate(context) {
     })
 
     panel.webview.html = getHtmlContent(htmlPath)
+
+    const selectionListener = setupSelectionSync()
+    panel.onDidDispose(() => {
+      selectionListener.dispose()
+    })
 
     setupMessageListeners()
 
@@ -59,8 +67,6 @@ function activate(context) {
       syncSettings()
     }
   })
-
-  setupSelectionSync()
 
   function setupMessageListeners() {
     panel.webview.onDidReceiveMessage(({ type, data }) => {
@@ -102,7 +108,7 @@ function activate(context) {
 
   function syncSettings() {
     const settings = vscode.workspace.getConfiguration('polacode')
-    const editorSettings = vscode.workspace.getConfiguration('editor')
+    const editorSettings = vscode.workspace.getConfiguration('editor', null)
     panel.webview.postMessage({
       type: 'updateSettings',
       shadow: settings.get('shadow'),
@@ -114,7 +120,7 @@ function activate(context) {
   }
 
   function setupSelectionSync() {
-    vscode.window.onDidChangeTextEditorSelection(e => {
+    return vscode.window.onDidChangeTextEditorSelection(e => {
       if (e.selections[0] && !e.selections[0].isEmpty) {
         vscode.commands.executeCommand('editor.action.clipboardCopyAction')
         panel.postMessage({
