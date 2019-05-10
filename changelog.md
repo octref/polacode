@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.3.2 | 2019-05-10
+
+- Vertically center code in the snippet. #108.
+
 ### 0.3.1 | 2019-05-07
 
 - Dispose selection sync after closing Polacode window so selection no longer jams clipboard. #107.
