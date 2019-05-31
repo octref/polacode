@@ -1,52 +1,30 @@
 <p>
-  <h2 align="center">Polacode — Polaroid for your code 📸</h2>
+  <h2 align="center">Polacode - 44886 — 基于polacode的一款vscode截图工具 📸</h2>
 </p>
 
 <!-- ![usage](https://github.com/octref/polacode/raw/master/demo/usage.gif) -->
 ![usage](./demo/usage.gif)
 
-## Why?
+## 为什么要修改原版？
 
-You have spent countless hours finding the perfect [JavaScript grammar](https://marketplace.visualstudio.com/search?term=javascript%20grammar&target=VSCode&category=All%20categories&sortBy=Relevance), matching it with a [sleek-looking VS Code theme](https://marketplace.visualstudio.com/search?target=VSCode&category=Themes&sortBy=Downloads), trying out all the [best programming fonts](https://www.slant.co/topics/67/~best-programming-fonts).
+因为，原版功能太少了！
 
-You take three days porting over [your theme](https://github.com/wesbos/cobalt2-vscode) before starting to use VS Code.  
-You shell out $200 for [italic cursive html attributes](https://www.typography.com/blog/introducing-operator).
+## 改了些什么？
 
-The code has to look right.
+- 原版布局全是用的flex，我不知道这是为何，想要拓展真的很不方便，我把外层全部改为了普通的布局
+- 原版没有苹果装逼的左上角三点，这怎么能行？我加了苹果左上角控制三点
+- 原版如果你是用remote开发，那么这个插件就只能运行在ssh，但那样生成的截图就不能保存在本地，这是什么玩意？我在我电脑上截图，结果截的图放在服务器上？我怎么用？
 
-## Tips
+## 怎么用？
+- 按下你键盘的F1，然后搜索 44886 ，就能看到 `polacode - 44886` ，嗯，点击它！ 
+- 这时，会出来一个新窗口在右边
+- 在左边用鼠标框选你想截图的代码，右边就自动复制过去啦！
+- 你现在可以用电脑自带的截图来截右边的代码，也可以点下方的照相按钮来生成图片。
 
-- Resize the snippet / container by dragging the lowerright corner
-- Use `polacode.target`, `polacode.shadow`, `polacode.transparentBackground` and `polacode.backgroundColor` to control image appearance
+## 下一步要改什么？
+- 要增加代码的行号
+- 还没相好……
 
-## Demo
-
-[Nord](https://github.com/arcticicestudio/nord-visual-studio-code) + [Input Mono](http://input.fontbureau.com)
-
-![demo1](https://raw.githubusercontent.com/octref/polacode/master/demo/1.png)
-
-[Monokai Pro](https://marketplace.visualstudio.com/items?itemName=monokai.theme-monokai-pro-vscode) + [Operator Mono](https://www.typography.com/blog/introducing-operator)
-
-![demo2](https://raw.githubusercontent.com/octref/polacode/master/demo/2.png)
-
-[Material Theme Palenight](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme) + [Fira Code](https://github.com/tonsky/FiraCode)
-
-![demo3](https://raw.githubusercontent.com/octref/polacode/master/demo/3.png)
-
-## Credit
-
-Thanks to [@tsayen](https://github.com/tsayen) for making [dom-to-image](https://github.com/tsayen/dom-to-image), which Polacode is using for generating the images.
-
-Thanks to [Dawn Labs](https://dawnlabs.io) for making [Carbon](https://carbon.now.sh) that inspired Polacode.
-
-Many color are taken from the elegant [Nord](https://github.com/arcticicestudio/nord) theme by [@arcticicestudio](https://github.com/arcticicestudio).
-
-Download button animation is made with [Vivus](https://github.com/maxwellito/vivus).
-
-## Contribution
-
-Contribution is not very welcome.
-Please open an issue first so I can stop you from complicating the UX.
 
 ## License
 

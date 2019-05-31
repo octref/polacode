@@ -1,11 +1,11 @@
 {
-  "name": "polacode",
-  "displayName": "Polacode",
-  "description": "📸  Polaroid for your code",
+  "name": "polacode-44886",
+  "displayName": "Polacode-44886",
+  "description": "📸  Polaroid for your code. edit by 44886.",
   "version": "0.3.2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/octref/polacode.git"
+    "url": "https://github.com/44886/polacode.git"
   },
   "publisher": "pnp",
   "keywords": [
@@ -35,7 +35,7 @@
     "commands": [
       {
         "command": "polacode.activate",
-        "title": "Polacode 📸"
+        "title": "Polacode 📸 - 44886"
       }
     ],
     "configuration": {
