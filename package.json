@@ -1,19 +1,20 @@
 {
   "name": "polacode-44886",
   "displayName": "Polacode-44886",
-  "description": "📸  Polaroid for your code. edit by 44886.",
-  "version": "0.3.2",
+  "description": "📸  Polaroid for your code. edit by 44886.(给你的代码一个美美的截图，基于polacode而生)",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/44886/polacode.git"
   },
-  "publisher": "pnp",
+  "publisher": "44886",
   "keywords": [
     "polacode",
     "polaroid",
     "screenshot",
     "snippet",
-    "share"
+    "share",
+    "44886"
   ],
   "galleryBanner": {
     "color": "#fbfbfb",
@@ -35,7 +36,7 @@
     "commands": [
       {
         "command": "polacode.activate",
-        "title": "Polacode 📸 - 44886"
+        "title": "Polacode📸-44886"
       }
     ],
     "configuration": {
@@ -48,14 +49,14 @@
         },
         "polacode.transparentBackground": {
           "type": "boolean",
-          "description": "Transparent background for containers",
+          "description": "背景色透明吗？",
           "default": false
         },
         "polacode.backgroundColor": {
           "type": "string",
-          "description": "Background color of snippet container. Use any value for CSS `background-color`",
+          "description": "背景颜色 `background-color`",
           "format": "color-hex",
-          "default": "#f2f2f2"
+          "default": "#fff"
         },
         "polacode.target": {
           "type": "string",

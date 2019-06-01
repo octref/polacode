@@ -23,7 +23,7 @@
   const getInitialHtml = fontFamily => {
     const cameraWithFlashEmoji = String.fromCodePoint(128248)
     const monoFontStack = `${fontFamily},SFMono-Regular,Consolas,DejaVu Sans Mono,Ubuntu Mono,Liberation Mono,Menlo,Courier,monospace`
-    return `<meta charset="utf-8"><div style="color: #d8dee9;background-color: #2e3440; font-family: ${monoFontStack};font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;">`+`欢迎使用 44886. 为您提供的代码美化截图工具，打开本窗口后，请在左边代码窗口框选你要截图的部分，本窗口将自动复制你的代码样式，您再点击下方的按钮，即可截图。</div>`
+    return `<meta charset="utf-8"><div style="color: #d8dee9;background-color: #2e3440; font-family: ${monoFontStack};font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><p>两种方式：</p>    <p>1.点击本窗口，按Ctrl+V粘贴代码即可。</p>    <p>2.如果左边打开了代码窗口，在左边拖选代码，本窗口自动同步过来。</p></div>`
   }
 
   const serializeBlob = (blob, cb) => {
@@ -261,4 +261,12 @@ function getRgba(hex, transparentBackground) {
   const b = bigint & 255;
   const a = transparentBackground ? 0 : 1
   return `rgba(${r}, ${g}, ${b}, ${a})`
+}
+
+function change(dom,key){
+  console.log(dom);
+
+  if(key=="control"){
+    document.getElementById("control").style.display="none";
+  }
 }
