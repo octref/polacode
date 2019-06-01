@@ -2,7 +2,7 @@
   "name": "polacode-44886",
   "displayName": "Polacode-44886",
   "description": "📸  Polaroid for your code. edit by 44886.(给你的代码一个美美的截图，基于polacode而生)",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/44886/polacode.git"

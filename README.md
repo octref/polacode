@@ -2,8 +2,8 @@
   <h2 align="center">Polacode - 44886 — 基于polacode的一款vscode截图工具 📸</h2>
 </p>
 
-<!-- ![usage](https://github.com/octref/polacode/raw/master/demo/usage.gif) -->
-![usage](./demo/usage.gif)
+<!-- ![usage]() -->
+![usage](https://github.com/octref/polacode/raw/master/demo/usage.gif)
 
 ## 为什么要修改原版？
 
