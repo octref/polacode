@@ -1,28 +1,29 @@
 ;(function() {
   const vscode = acquireVsCodeApi()
 
-  let target = 'container'
+  let target = "container"
   let transparentBackground = false
-  let backgroundColor = '#f2f2f2'
+  let backgroundColor = "#f2f2f2"
+  let fontFamily
 
   vscode.postMessage({
-    type: 'getAndUpdateCacheAndSettings'
+    type: "getAndUpdateCacheAndSettings"
   })
 
-  const snippetNode = document.getElementById('snippet')
-  const snippetContainerNode = document.getElementById('snippet-container')
-  const obturateur = document.getElementById('save')
+  const snippetNode = document.getElementById("snippet")
+  const snippetContainerNode = document.getElementById("snippet-container")
+  const obturateur = document.getElementById("save")
 
-  snippetContainerNode.style.opacity = '1'
-  const oldState = vscode.getState();
+  snippetContainerNode.style.opacity = "1"
+  const oldState = vscode.getState()
   if (oldState && oldState.innerHTML) {
     snippetNode.innerHTML = oldState.innerHTML
   }
 
-  const getInitialHtml = fontFamily => {
+  const getInitialHtml = () => {
     const cameraWithFlashEmoji = String.fromCodePoint(128248)
     const monoFontStack = `${fontFamily},SFMono-Regular,Consolas,DejaVu Sans Mono,Ubuntu Mono,Liberation Mono,Menlo,Courier,monospace`
-    return `<meta charset="utf-8"><div style="color: #d8dee9;background-color: #2e3440; font-family: ${monoFontStack};font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">0. Run command \`Polacode ${cameraWithFlashEmoji}\`</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">1. Copy some code</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">2. Paste into Polacode view</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">3. Click the button ${cameraWithFlashEmoji}</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div></div></div>`
+    return `<div style="color: #d8dee9;background-color: #2e3440; font-family: ${monoFontStack};font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">0. Run command \`Polacode ${cameraWithFlashEmoji}\`</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">1. Copy some code</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">2. Paste into Polacode view</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">3. Click the button ${cameraWithFlashEmoji}</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div></div></div>`
   }
 
   const serializeBlob = (blob, cb) => {
@@ -30,7 +31,7 @@
 
     fileReader.onload = () => {
       const bytes = new Uint8Array(fileReader.result)
-      cb(Array.from(bytes).join(','))
+      cb(Array.from(bytes).join(","))
     }
     function getBrightness(color) {
       const rgb = this.toRgb()
@@ -42,7 +43,7 @@
 
   function shoot(serializedBlob) {
     vscode.postMessage({
-      type: 'shoot',
+      type: "shoot",
       data: {
         serializedBlob
       }
@@ -61,23 +62,23 @@
   }
   function getSnippetBgColor(html) {
     const match = html.match(/background-color: (#[a-fA-F0-9]+)/)
-    return match ? match[1] : undefined;
+    return match ? match[1] : undefined
   }
 
   function updateEnvironment(snippetBgColor) {
     // update snippet bg color
-    document.getElementById('snippet').style.backgroundColor = snippetBgColor
+    document.getElementById("snippet").style.backgroundColor = snippetBgColor
 
     // update backdrop color
     if (isDark(snippetBgColor)) {
-      snippetContainerNode.style.backgroundColor = '#f2f2f2'
+      snippetContainerNode.style.backgroundColor = "#f2f2f2"
     } else {
-      snippetContainerNode.style.background = 'none'
+      snippetContainerNode.style.background = "none"
     }
   }
 
   function getMinIndent(code) {
-    const arr = code.split('\n')
+    const arr = code.split("\n")
 
     let minIndentCount = Number.MAX_VALUE
     for (let i = 0; i < arr.length; i++) {
@@ -93,24 +94,27 @@
   }
 
   function stripInitialIndent(html, indent) {
-    const doc = new DOMParser().parseFromString(html, 'text/html')
-    const initialSpans = doc.querySelectorAll('div > div span:first-child')
+    const doc = new DOMParser().parseFromString(html, "text/html")
+    const initialSpans = doc.querySelectorAll("div > div span:first-child")
     for (let i = 0; i < initialSpans.length; i++) {
       initialSpans[i].textContent = initialSpans[i].textContent.slice(indent)
     }
     return doc.body.innerHTML
   }
 
-  document.addEventListener('paste', e => {
-    const innerHTML = e.clipboardData.getData('text/html')
+  document.addEventListener("paste", e => {
+    var div = document.createElement("div")
+    div.innerHTML = e.clipboardData.getData("text/html")
+    div.querySelector("div").style.fontFamily = fontFamily
+    const innerHTML = div.innerHTML
 
-    const code = e.clipboardData.getData('text/plain')
+    const code = e.clipboardData.getData("text/plain")
     const minIndent = getMinIndent(code)
 
     const snippetBgColor = getSnippetBgColor(innerHTML)
     if (snippetBgColor) {
       vscode.postMessage({
-        type: 'updateBgColor',
+        type: "updateBgColor",
         data: {
           bgColor: snippetBgColor
         }
@@ -127,9 +131,9 @@
     vscode.setState({ innerHTML })
   })
 
-  obturateur.addEventListener('click', () => {
-    if (target === 'container') {
-      shootAll() 
+  obturateur.addEventListener("click", () => {
+    if (target === "container") {
+      shootAll()
     } else {
       shootSnippet()
     }
@@ -142,19 +146,19 @@
       width,
       height,
       style: {
-        transform: 'scale(2)',
-        'transform-origin': 'center',
+        transform: "scale(2)",
+        "transform-origin": "center",
         background: getRgba(backgroundColor, transparentBackground)
       }
     }
 
     // Hide resizer before capture
-    snippetNode.style.resize = 'none'
-    snippetContainerNode.style.resize = 'none'
+    snippetNode.style.resize = "none"
+    snippetContainerNode.style.resize = "none"
 
     domtoimage.toBlob(snippetContainerNode, config).then(blob => {
-      snippetNode.style.resize = ''
-      snippetContainerNode.style.resize = ''
+      snippetNode.style.resize = ""
+      snippetContainerNode.style.resize = ""
       serializeBlob(blob, serializedBlob => {
         shoot(serializedBlob)
       })
@@ -168,20 +172,20 @@
       width,
       height,
       style: {
-        transform: 'scale(2)',
-        'transform-origin': 'center',
+        transform: "scale(2)",
+        "transform-origin": "center",
         padding: 0,
-        background: 'none'
+        background: "none"
       }
     }
 
     // Hide resizer before capture
-    snippetNode.style.resize = 'none'
-    snippetContainerNode.style.resize = 'none'
+    snippetNode.style.resize = "none"
+    snippetContainerNode.style.resize = "none"
 
     domtoimage.toBlob(snippetContainerNode, config).then(blob => {
-      snippetNode.style.resize = ''
-      snippetContainerNode.style.resize = ''
+      snippetNode.style.resize = ""
+      snippetContainerNode.style.resize = ""
       serializeBlob(blob, serializedBlob => {
         shoot(serializedBlob)
       })
@@ -190,62 +194,62 @@
 
   let isInAnimation = false
 
-  obturateur.addEventListener('mouseover', () => {
+  obturateur.addEventListener("mouseover", () => {
     if (!isInAnimation) {
       isInAnimation = true
 
       new Vivus(
-        'save',
+        "save",
         {
           duration: 40,
           onReady: () => {
-            obturateur.className = 'obturateur filling'
+            obturateur.className = "obturateur filling"
           }
         },
         () => {
           setTimeout(() => {
             isInAnimation = false
-            obturateur.className = 'obturateur'
+            obturateur.className = "obturateur"
           }, 700)
         }
       )
     }
   })
 
-  window.addEventListener('message', e => {
+  window.addEventListener("message", e => {
     if (e) {
-      if (e.data.type === 'init') {
-        const { fontFamily, bgColor } = e.data
+      if (e.data.type === "init") {
+        const { fontFamily: ff, bgColor } = e.data
+        fontFamily = ff
 
-        const initialHtml = getInitialHtml(fontFamily)
+        const initialHtml = getInitialHtml()
         snippetNode.innerHTML = initialHtml
         vscode.setState({ innerHTML: initialHtml })
 
         // update backdrop color, using bgColor from last pasted snippet
         // cannot deduce from initialHtml since it's always using Nord color
         if (isDark(bgColor)) {
-          snippetContainerNode.style.backgroundColor = '#f2f2f2'
+          snippetContainerNode.style.backgroundColor = "#f2f2f2"
         } else {
-          snippetContainerNode.style.background = 'none'
+          snippetContainerNode.style.background = "none"
         }
-
-      } else if (e.data.type === 'update') {
-        document.execCommand('paste')
-      } else if (e.data.type === 'restore') {
+      } else if (e.data.type === "update") {
+        document.execCommand("paste")
+      } else if (e.data.type === "restore") {
         snippetNode.innerHTML = e.data.innerHTML
         updateEnvironment(e.data.bgColor)
-      } else if (e.data.type === 'restoreBgColor') {
+      } else if (e.data.type === "restoreBgColor") {
         updateEnvironment(e.data.bgColor)
-      } else if (e.data.type === 'updateSettings') {
+      } else if (e.data.type === "updateSettings") {
         snippetNode.style.boxShadow = e.data.shadow
         target = e.data.target
         transparentBackground = e.data.transparentBackground
         snippetContainerNode.style.backgroundColor = e.data.backgroundColor
         backgroundColor = e.data.backgroundColor
         if (e.data.ligature) {
-          snippetNode.style.fontVariantLigatures = 'normal'
+          snippetNode.style.fontVariantLigatures = "normal"
         } else {
-          snippetNode.style.fontVariantLigatures = 'none'
+          snippetNode.style.fontVariantLigatures = "none"
         }
       }
     }
@@ -253,10 +257,10 @@
 })()
 
 function getRgba(hex, transparentBackground) {
-  const bigint = parseInt(hex.slice(1), 16);
-  const r = (bigint >> 16) & 255;
-  const g = (bigint >> 8) & 255;
-  const b = bigint & 255;
+  const bigint = parseInt(hex.slice(1), 16)
+  const r = (bigint >> 16) & 255
+  const g = (bigint >> 8) & 255
+  const b = bigint & 255
   const a = transparentBackground ? 0 : 1
   return `rgba(${r}, ${g}, ${b}, ${a})`
 }
