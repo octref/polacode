@@ -264,4 +264,3 @@ function getRgba(hex, transparentBackground) {
   const a = transparentBackground ? 0 : 1
   return `rgba(${r}, ${g}, ${b}, ${a})`
 }
-
