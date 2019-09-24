@@ -4,6 +4,7 @@
   let target = 'container'
   let transparentBackground = false
   let backgroundColor = '#f2f2f2'
+  let fontFamily
 
   vscode.postMessage({
     type: 'getAndUpdateCacheAndSettings'
@@ -14,14 +15,15 @@
   const obturateur = document.getElementById('save')
 
   snippetContainerNode.style.opacity = '1'
-  const oldState = vscode.getState();
+  const oldState = vscode.getState()
   if (oldState && oldState.innerHTML) {
     snippetNode.innerHTML = oldState.innerHTML
   }
 
-  const getInitialHtml = fontFamily => {
+  const getInitialHtml = ff => {
     const cameraWithFlashEmoji = String.fromCodePoint(128248)
-    const monoFontStack = `${fontFamily},SFMono-Regular,Consolas,DejaVu Sans Mono,Ubuntu Mono,Liberation Mono,Menlo,Courier,monospace`
+    const monoFontStack = `${ff},SFMono-Regular,Consolas,DejaVu Sans Mono,Ubuntu Mono,Liberation Mono,Menlo,Courier,monospace`
+    fontFamily = monoFontStack
     return `<meta charset="utf-8"><div style="color: #d8dee9;background-color: #2e3440; font-family: ${monoFontStack};font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">0. Run command \`Polacode ${cameraWithFlashEmoji}\`</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">1. Copy some code</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">2. Paste into Polacode view</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">3. Click the button ${cameraWithFlashEmoji}</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div></div></div>`
   }
 
@@ -61,7 +63,7 @@
   }
   function getSnippetBgColor(html) {
     const match = html.match(/background-color: (#[a-fA-F0-9]+)/)
-    return match ? match[1] : undefined;
+    return match ? match[1] : undefined
   }
 
   function updateEnvironment(snippetBgColor) {
@@ -102,7 +104,10 @@
   }
 
   document.addEventListener('paste', e => {
-    const innerHTML = e.clipboardData.getData('text/html')
+    const div = document.createElement('div')
+    div.innerHTML = e.clipboardData.getData('text/html')
+    div.querySelector('div').style.fontFamily = fontFamily
+    const innerHTML = div.innerHTML
 
     const code = e.clipboardData.getData('text/plain')
     const minIndent = getMinIndent(code)
@@ -129,7 +134,7 @@
 
   obturateur.addEventListener('click', () => {
     if (target === 'container') {
-      shootAll() 
+      shootAll()
     } else {
       shootSnippet()
     }
@@ -228,7 +233,6 @@
         } else {
           snippetContainerNode.style.background = 'none'
         }
-
       } else if (e.data.type === 'update') {
         document.execCommand('paste')
       } else if (e.data.type === 'restore') {
@@ -253,10 +257,10 @@
 })()
 
 function getRgba(hex, transparentBackground) {
-  const bigint = parseInt(hex.slice(1), 16);
-  const r = (bigint >> 16) & 255;
-  const g = (bigint >> 8) & 255;
-  const b = bigint & 255;
+  const bigint = parseInt(hex.slice(1), 16)
+  const r = (bigint >> 16) & 255
+  const g = (bigint >> 8) & 255
+  const b = bigint & 255
   const a = transparentBackground ? 0 : 1
   return `rgba(${r}, ${g}, ${b}, ${a})`
 }
