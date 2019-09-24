@@ -82,9 +82,9 @@
     const initialSpans = Array.from(
       node.querySelectorAll('div > div > span:first-child')
     )
-    if (initialSpans.some(span => !span.textContent.match(/^\s+$/))) return
+    if (initialSpans.some(span => !span.textContent.match(/^\s+/))) return
     const minIndent = Math.min(
-      ...initialSpans.map(span => span.textContent.length)
+      ...initialSpans.map(span => span.textContent.match(/^\s+/)[0].length)
     )
     initialSpans.forEach(
       span => (span.textContent = span.textContent.slice(minIndent))
