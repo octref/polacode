@@ -78,39 +78,25 @@
     }
   }
 
-  function getMinIndent(code) {
-    const arr = code.split('\n')
-
-    let minIndentCount = Number.MAX_VALUE
-    for (let i = 0; i < arr.length; i++) {
-      const wsCount = arr[i].search(/\S/)
-      if (wsCount !== -1) {
-        if (wsCount < minIndentCount) {
-          minIndentCount = wsCount
-        }
-      }
-    }
-
-    return minIndentCount
-  }
-
-  function stripInitialIndent(html, indent) {
-    const doc = new DOMParser().parseFromString(html, 'text/html')
-    const initialSpans = doc.querySelectorAll('div > div span:first-child')
-    for (let i = 0; i < initialSpans.length; i++) {
-      initialSpans[i].textContent = initialSpans[i].textContent.slice(indent)
-    }
-    return doc.body.innerHTML
+  function stripInitialIndent(node) {
+    const initialSpans = Array.from(
+      node.querySelectorAll('div > div > span:first-child')
+    )
+    if (initialSpans.some(span => !span.textContent.match(/^\s+$/))) return
+    const minIndent = Math.min(
+      ...initialSpans.map(span => span.textContent.length)
+    )
+    initialSpans.forEach(
+      span => (span.textContent = span.textContent.slice(minIndent))
+    )
   }
 
   document.addEventListener('paste', e => {
     const div = document.createElement('div')
     div.innerHTML = e.clipboardData.getData('text/html')
     div.querySelector('div').style.fontFamily = fontFamily
+    stripInitialIndent(div)
     const innerHTML = div.innerHTML
-
-    const code = e.clipboardData.getData('text/plain')
-    const minIndent = getMinIndent(code)
 
     const snippetBgColor = getSnippetBgColor(innerHTML)
     if (snippetBgColor) {
@@ -122,12 +108,7 @@
       })
       updateEnvironment(snippetBgColor)
     }
-
-    if (minIndent !== 0) {
-      snippetNode.innerHTML = stripInitialIndent(innerHTML, minIndent)
-    } else {
-      snippetNode.innerHTML = innerHTML
-    }
+    snippetNode.innerHTML = innerHTML
 
     vscode.setState({ innerHTML })
   })
