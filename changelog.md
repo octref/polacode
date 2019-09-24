@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.3.3 | 2019-09-24
+
+- 🙌 Fix Polacode not loading `font-family` correctly. Thanks to contribution from [@kufii](https://github.com/kufii). #121.
+
 ### 0.3.2 | 2019-05-10
 
 - Vertically center code in the snippet. #108.
