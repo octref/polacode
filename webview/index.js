@@ -61,9 +61,8 @@
   function isDark(hexColor) {
     return getBrightness(hexColor) < 128
   }
-  function getSnippetBgColor(html) {
-    const match = html.match(/background-color: (#[a-fA-F0-9]+)/)
-    return match ? match[1] : undefined
+  function getSnippetBgColor(node) {
+    return node.style.backgroundColor
   }
 
   function updateEnvironment(snippetBgColor) {
@@ -94,11 +93,12 @@
   document.addEventListener('paste', e => {
     const div = document.createElement('div')
     div.innerHTML = e.clipboardData.getData('text/html')
-    div.querySelector('div').style.fontFamily = fontFamily
-    stripInitialIndent(div)
+    const snippetDiv = div.querySelector('div')
+    snippetDiv.style.fontFamily = fontFamily
+    stripInitialIndent(snippetDiv)
+    const snippetBgColor = getSnippetBgColor(snippetDiv)
     const innerHTML = div.innerHTML
-
-    const snippetBgColor = getSnippetBgColor(innerHTML)
+    
     if (snippetBgColor) {
       vscode.postMessage({
         type: 'updateBgColor',
