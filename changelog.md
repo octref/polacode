@@ -1,8 +1,12 @@
 # Changelog
 
+### 0.3.4 | 2019-09-27
+
+- Fix Polacode not loading background color correctly. [#125](https://github.com/octref/polacode/issues/125).
+
 ### 0.3.3 | 2019-09-24
 
-- 🙌 Fix Polacode not loading `font-family` correctly. Thanks to contribution from [@kufii](https://github.com/kufii). #121.
+- 🙌 Fix Polacode not loading `font-family` correctly. Thanks to contribution from [@kufii](https://github.com/kufii). [#121](https://github.com/octref/polacode/pull/121).
 
 ### 0.3.2 | 2019-05-10
 
