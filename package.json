@@ -2,7 +2,7 @@
   "name": "polacode",
   "displayName": "Polacode",
   "description": "📸  Polaroid for your code",
-  "version": "0.3.2",
+  "version": "0.3.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/octref/polacode.git"
