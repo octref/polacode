@@ -4,6 +4,7 @@
   let target = 'container'
   let transparentBackground = false
   let backgroundColor = '#f2f2f2'
+  let fontFamily
 
   vscode.postMessage({
     type: 'getAndUpdateCacheAndSettings'
@@ -14,14 +15,15 @@
   const obturateur = document.getElementById('save')
 
   snippetContainerNode.style.opacity = '1'
-  const oldState = vscode.getState();
+  const oldState = vscode.getState()
   if (oldState && oldState.innerHTML) {
     snippetNode.innerHTML = oldState.innerHTML
   }
 
-  const getInitialHtml = fontFamily => {
+  const getInitialHtml = ff => {
     const cameraWithFlashEmoji = String.fromCodePoint(128248)
-    const monoFontStack = `${fontFamily},SFMono-Regular,Consolas,DejaVu Sans Mono,Ubuntu Mono,Liberation Mono,Menlo,Courier,monospace`
+    const monoFontStack = `${ff},SFMono-Regular,Consolas,DejaVu Sans Mono,Ubuntu Mono,Liberation Mono,Menlo,Courier,monospace`
+    fontFamily = monoFontStack
     return `<meta charset="utf-8"><div style="color: #d8dee9;background-color: #2e3440; font-family: ${monoFontStack};font-weight: normal;font-size: 12px;line-height: 18px;white-space: pre;"><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">0. Run command \`Polacode ${cameraWithFlashEmoji}\`</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">1. Copy some code</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">2. Paste into Polacode view</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div><div><span style="color: #8fbcbb;">console</span><span style="color: #eceff4;">.</span><span style="color: #88c0d0;">log</span><span style="color: #d8dee9;">(</span><span style="color: #eceff4;">'</span><span style="color: #a3be8c;">3. Click the button ${cameraWithFlashEmoji}</span><span style="color: #eceff4;">'</span><span style="color: #d8dee9;">)</span></div></div></div>`
   }
 
@@ -59,9 +61,8 @@
   function isDark(hexColor) {
     return getBrightness(hexColor) < 128
   }
-  function getSnippetBgColor(html) {
-    const match = html.match(/background-color: (#[a-fA-F0-9]+)/)
-    return match ? match[1] : undefined;
+  function getSnippetBgColor(node) {
+    return node.style.backgroundColor
   }
 
   function updateEnvironment(snippetBgColor) {
@@ -76,38 +77,28 @@
     }
   }
 
-  function getMinIndent(code) {
-    const arr = code.split('\n')
-
-    let minIndentCount = Number.MAX_VALUE
-    for (let i = 0; i < arr.length; i++) {
-      const wsCount = arr[i].search(/\S/)
-      if (wsCount !== -1) {
-        if (wsCount < minIndentCount) {
-          minIndentCount = wsCount
-        }
-      }
-    }
-
-    return minIndentCount
-  }
-
-  function stripInitialIndent(html, indent) {
-    const doc = new DOMParser().parseFromString(html, 'text/html')
-    const initialSpans = doc.querySelectorAll('div > div span:first-child')
-    for (let i = 0; i < initialSpans.length; i++) {
-      initialSpans[i].textContent = initialSpans[i].textContent.slice(indent)
-    }
-    return doc.body.innerHTML
+  function stripInitialIndent(node) {
+    const initialSpans = Array.from(
+      node.querySelectorAll('div > div > span:first-child')
+    )
+    if (initialSpans.some(span => !span.textContent.match(/^\s+/))) return
+    const minIndent = Math.min(
+      ...initialSpans.map(span => span.textContent.match(/^\s+/)[0].length)
+    )
+    initialSpans.forEach(
+      span => (span.textContent = span.textContent.slice(minIndent))
+    )
   }
 
   document.addEventListener('paste', e => {
-    const innerHTML = e.clipboardData.getData('text/html')
-
-    const code = e.clipboardData.getData('text/plain')
-    const minIndent = getMinIndent(code)
-
-    const snippetBgColor = getSnippetBgColor(innerHTML)
+    const div = document.createElement('div')
+    div.innerHTML = e.clipboardData.getData('text/html')
+    const snippetDiv = div.querySelector('div')
+    snippetDiv.style.fontFamily = fontFamily
+    stripInitialIndent(snippetDiv)
+    const snippetBgColor = getSnippetBgColor(snippetDiv)
+    const innerHTML = div.innerHTML
+    
     if (snippetBgColor) {
       vscode.postMessage({
         type: 'updateBgColor',
@@ -117,19 +108,14 @@
       })
       updateEnvironment(snippetBgColor)
     }
-
-    if (minIndent !== 0) {
-      snippetNode.innerHTML = stripInitialIndent(innerHTML, minIndent)
-    } else {
-      snippetNode.innerHTML = innerHTML
-    }
+    snippetNode.innerHTML = innerHTML
 
     vscode.setState({ innerHTML })
   })
 
   obturateur.addEventListener('click', () => {
     if (target === 'container') {
-      shootAll() 
+      shootAll()
     } else {
       shootSnippet()
     }
@@ -228,7 +214,6 @@
         } else {
           snippetContainerNode.style.background = 'none'
         }
-
       } else if (e.data.type === 'update') {
         document.execCommand('paste')
       } else if (e.data.type === 'restore') {
@@ -253,10 +238,10 @@
 })()
 
 function getRgba(hex, transparentBackground) {
-  const bigint = parseInt(hex.slice(1), 16);
-  const r = (bigint >> 16) & 255;
-  const g = (bigint >> 8) & 255;
-  const b = bigint & 255;
+  const bigint = parseInt(hex.slice(1), 16)
+  const r = (bigint >> 16) & 255
+  const g = (bigint >> 8) & 255
+  const b = bigint & 255
   const a = transparentBackground ? 0 : 1
   return `rgba(${r}, ${g}, ${b}, ${a})`
 }
