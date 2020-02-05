@@ -122,7 +122,7 @@ function activate(context) {
   function setupSelectionSync() {
     return vscode.window.onDidChangeTextEditorSelection(e => {
       if (e.selections[0] && !e.selections[0].isEmpty) {
-        vscode.commands.executeCommand('editor.action.clipboardCopyAction')
+        vscode.commands.executeCommand('editor.action.clipboardCopyWithSyntaxHighlightingAction')
         panel.postMessage({
           type: 'update'
         })
