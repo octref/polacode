@@ -5,6 +5,13 @@
 <!-- ![usage](https://github.com/octref/polacode/raw/master/demo/usage.gif) -->
 ![usage](./demo/usage.gif)
 
+## Usage
+
+0. Open up your command palette `CTRL + Shift + P` and write Polacode 📸
+1. Copy some code.
+2. Polacode view will generate a preview.
+3. Click the button 📸.
+
 ## Why?
 
 You have spent countless hours finding the perfect [JavaScript grammar](https://marketplace.visualstudio.com/search?term=javascript%20grammar&target=VSCode&category=All%20categories&sortBy=Relevance), matching it with a [sleek-looking VS Code theme](https://marketplace.visualstudio.com/search?target=VSCode&category=Themes&sortBy=Downloads), trying out all the [best programming fonts](https://www.slant.co/topics/67/~best-programming-fonts).
