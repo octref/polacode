@@ -16,7 +16,8 @@ const P_TITLE = 'Polacode 📸'
 function activate(context) {
   const htmlPath = path.resolve(context.extensionPath, 'webview/index.html')
 
-  let lastUsedImageUri = vscode.Uri.file(path.resolve(homedir(), 'Desktop/code.png'))
+  let lastUsedImageUri
+  let lastFile
   let panel
 
   vscode.window.registerWebviewPanelSerializer('polacode', {
@@ -74,7 +75,7 @@ function activate(context) {
         case 'shoot':
           vscode.window
             .showSaveDialog({
-              defaultUri: lastUsedImageUri,
+              defaultUri: getFileName(),
               filters: {
                 Images: ['png']
               }
@@ -119,9 +120,28 @@ function activate(context) {
     })
   }
 
+  function getFileName() {
+    let fileName = 'code.png'
+    if (!lastFile.isUntitled) {
+      const file = lastFile.uri.path.replace(/.*\/(.+[\..+]*)?(\..+)?$/, '$1$2')
+      const dateString = () => {
+        const date = new Date()
+        return date.toLocaleString()
+          .replace(/\//g, '-')
+          .replace(/,/, ' at')
+          .replace(/:/g, '.')
+          .replace(/(\d+)-(\d+)-(\d+)/, '$3-$1-$2')
+      }
+      fileName = `code - ${file} ${dateString()}.png`
+    }
+    lastUsedImageUri = vscode.Uri.file(path.resolve(homedir(), 'Desktop', fileName))
+    return lastUsedImageUri
+  }
+
   function setupSelectionSync() {
     return vscode.window.onDidChangeTextEditorSelection(e => {
       if (e.selections[0] && !e.selections[0].isEmpty) {
+        lastFile = e.textEditor.document
         vscode.commands.executeCommand('editor.action.clipboardCopyWithSyntaxHighlightingAction')
         panel.postMessage({
           type: 'update'
