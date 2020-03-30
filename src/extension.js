@@ -123,7 +123,7 @@ function activate(context) {
   function getFileName() {
     let fileName = 'code.png'
     if (!lastFile.isUntitled) {
-      const file = lastFile.uri.path.replace(/.*\/(\w+[\.\w+]*)?(\.\w+)?$/, '$1$2')
+      const file = lastFile.uri.path.replace(/.*\/(.+[\..+]*)?(\..+)?$/, '$1$2')
       const dateString = () => {
         const date = new Date()
         return date.toLocaleString()
