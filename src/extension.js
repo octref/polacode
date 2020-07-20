@@ -22,7 +22,7 @@ function activate(context) {
   vscode.window.registerWebviewPanelSerializer('polacode', {
     async deserializeWebviewPanel(_panel, state) {
       panel = _panel
-      panel.webview.html = getHtmlContent(htmlPath)
+      panel.webview.html = getHtmlContent()
       panel.webview.postMessage({
         type: 'restore',
         innerHTML: state.innerHTML,
@@ -42,7 +42,7 @@ function activate(context) {
       localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'webview'))]
     })
 
-    panel.webview.html = getHtmlContent(htmlPath)
+    panel.webview.html = getHtmlContent()
 
     const selectionListener = setupSelectionSync()
     panel.onDidDispose(() => {
@@ -129,14 +129,14 @@ function activate(context) {
       }
     })
   }
-}
 
-function getHtmlContent(htmlPath) {
-  const htmlContent = fs.readFileSync(htmlPath, 'utf-8')
-  return htmlContent.replace(/script src="([^"]*)"/g, (match, src) => {
-    const realSource = 'vscode-resource:' + path.resolve(htmlPath, '..', src)
-    return `script src="${realSource}"`
-  })
+  function getHtmlContent() {
+    const htmlContent = fs.readFileSync(htmlPath, 'utf-8')
+    const absolutePath = vscode.Uri.file(context.asAbsolutePath('./webview'))
+    const webviewPath = panel.webview.asWebviewUri(absolutePath).toString()
+  
+    return htmlContent.replace(/{{root}}/g, webviewPath);
+  }
 }
 
 exports.activate = activate
