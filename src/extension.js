@@ -14,7 +14,6 @@ const P_TITLE = 'Polacode 📸'
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-  const outputChannel = vscode.window.createOutputChannel(P_TITLE)
   const htmlPath = path.resolve(context.extensionPath, 'webview/index.html')
 
   let lastUsedImageUri = vscode.Uri.file(path.resolve(homedir(), 'Desktop/code.png'))
@@ -131,16 +130,13 @@ function activate(context) {
     })
   }
 
-  outputChannel.appendLine(`${P_TITLE} activated`)
-  outputChannel.show();
-}
-
-function getHtmlContent(htmlPath) {
-  const htmlContent = fs.readFileSync(htmlPath, 'utf-8')
-  return htmlContent.replace(/script src="([^"]*)"/g, (match, src) => {
-    const realSource = 'vscode-resource:' + path.resolve(htmlPath, '..', src)
-    return `script src="${realSource}"`
-  })
+  function getHtmlContent(htmlPath) {
+    const htmlContent = fs.readFileSync(htmlPath, 'utf-8')
+    const absolutePath = vscode.Uri.file(context.asAbsolutePath('./webview'))
+    const webviewPath = panel.webview.asWebviewUri(absolutePath).toString()
+  
+    return htmlContent.replace(/{{root}}/g, webviewPath);
+  }
 }
 
 exports.activate = activate
