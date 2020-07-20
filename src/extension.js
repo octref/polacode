@@ -14,6 +14,7 @@ const P_TITLE = 'Polacode 📸'
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+  const outputChannel = vscode.window.createOutputChannel(P_TITLE)
   const htmlPath = path.resolve(context.extensionPath, 'webview/index.html')
 
   let lastUsedImageUri = vscode.Uri.file(path.resolve(homedir(), 'Desktop/code.png'))
@@ -129,6 +130,9 @@ function activate(context) {
       }
     })
   }
+
+  outputChannel.appendLine(`${P_TITLE} activated`)
+  outputChannel.show();
 }
 
 function getHtmlContent(htmlPath) {
