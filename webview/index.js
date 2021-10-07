@@ -127,13 +127,15 @@
     vscode.setState({ innerHTML })
   })
 
-  obturateur.addEventListener('click', () => {
-    if (target === 'container') {
-      shootAll() 
+  obturateur.addEventListener("click", () => {
+    if (target === "container") {
+      shootAll();
+    } else if (target === "clipboard") {
+      shootClipboard();
     } else {
-      shootSnippet()
+      shootSnippet();
     }
-  })
+  });
 
   function shootAll() {
     const width = snippetContainerNode.offsetWidth * 2
@@ -187,6 +189,37 @@
       })
     })
   }
+
+ function shootClipboard() {
+   const width = snippetContainerNode.offsetWidth * 2;
+   const height = snippetContainerNode.offsetHeight * 2;
+   const config = {
+     width,
+     height,
+     style: {
+       transform: "scale(2)",
+       "transform-origin": "center",
+       background: getRgba(backgroundColor, transparentBackground),
+     },
+   };
+
+   // Hide resizer before capture
+   snippetNode.style.resize = "none";
+   snippetContainerNode.style.resize = "none";
+
+   domtoimage.toBlob(snippetContainerNode, config).then((blob) => {
+     snippetNode.style.resize = "";
+     snippetContainerNode.style.resize = "";
+
+     var data = [new ClipboardItem({ "image/png": blob })];
+
+     navigator.clipboard.write(data).then(
+       () => {
+         shoot(data);
+       }
+     );
+   });
+ }
 
   let isInAnimation = false
 

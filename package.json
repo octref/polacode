@@ -63,11 +63,13 @@
           "default": "container",
           "enum": [
             "container",
-            "snippet"
+            "snippet",
+            "clipboard"
           ],
           "enumDescriptions": [
             "Shoot with the container.",
-            "Shoot with the snippet alone. If you want transparent padding, use `container` with `\"polacode.transparentBackground\": true`"
+            "Shoot with the snippet alone. If you want transparent padding, use `container` with `\"polacode.transparentBackground\": true`",
+            "Shoot to clipboard"
           ]
         }
       }
